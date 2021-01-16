@@ -1,5 +1,9 @@
 module.exports.profile = function(req,res){
-    res.end('<h1>Rendered users profile succesfully</h1>')
+    // res.end('<h1>Rendered users profile succesfully</h1>')
+    return res.render('user',{
+        title:'Shishir',
+        number:'10,000'
+    });
 } 
 //Now i've exported my contoller function nd now I need to import it in router file(users.js)
 
