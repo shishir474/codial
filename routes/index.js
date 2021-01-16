@@ -9,6 +9,11 @@ router.get('/',homeController.home);
 }}
 Basically homeController is an object that has a property home which has a value of a function
 */
+router.use('/users', require('./users'));
+router.use('/posts', require('./posts'));
+/* for any other routes access from here
+ router.use('/routerName',require('./routerfile'));
+*/
 
 console.log('router loaded');
 module.exports = router;

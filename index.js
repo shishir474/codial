@@ -4,6 +4,7 @@ const app = express();
 
 // use express router
 app.use('/',require('./routes'));
+/*For any type of request it requires routes indes.js.So we mapped to it */
 
 app.listen(port,function(err){
     if (err){
