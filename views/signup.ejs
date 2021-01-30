@@ -1,0 +1,27 @@
+<html>
+    <head>
+     <title><%-title %></title>
+     <link rel="stylesheet" href="/css/signup.css">
+
+    </head>
+    <body>
+        <h1>Enter your Credentials</h1>
+        <form action="/create-user" method="POST">
+            <div>
+                <label for="name">Name :</label>
+                <input type="text" name="name" id="name" placeholder="enter name" required>
+            </div><br>
+            <div>
+                <label for="email">Email :</label>
+                <input type="email" name="email" id="email" required placeholder="enter email">
+            </div><br>
+             <div>
+                <label for="password">Password :</label>
+                <input type="password" name="password" id="password" required>  
+            </div><br>
+
+            <input type="submit" value="Sign-Up">
+
+        </form>
+    </body>
+</html>

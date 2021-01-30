@@ -2,6 +2,25 @@
 const express = require('express');
 const port = 8000;
 const app = express();
+const expressLayouts = require('express-ejs-layouts');
+const cookieParser = require('cookie-parser');
+const db = require('./config/mongoose');
+const User = require('./models/User');
+
+// look for the static files in the assets folder
+app.use(express.static('./assets'));
+
+app.use(express.urlencoded());
+
+// telling my app to use the cookie parser so that I can access/alter it
+app.use(cookieParser());
+
+// all the views that are going to be rendered belongs to some sort of a layout.That's why we need to tell our app
+app.use(expressLayouts);
+
+// extract style and scripts from subpages into the layout
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
 
 // use express router
 app.use('/',require('./routes'));

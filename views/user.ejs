@@ -3,9 +3,12 @@
         <title>
             <%= title %>
         </title>
-        
+        <link rel="stylesheet" href="/css/user_profile.css"> 
     </head>
     <body>
+        <!-- <%- include('_header') %> -->
+        <!-- as I've already included my header and footer in layout.ejs that's why I'm omitting(bcoz it's appering twice) this part in body part  -->
         <h1>Hey <%= title%>, you've got <%= number %> users </h1>
+        <!-- <%- include('_footer') %> -->
     </body>
 </html>

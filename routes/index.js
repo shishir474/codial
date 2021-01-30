@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const homeController = require('../controllers/home_controller');
 
+
 router.get('/',homeController.home);
 // For all get type request for the path '/' this (homeController.home) function will be called
 /* homeController = {home: function(){
@@ -14,6 +15,8 @@ router.use('/posts', require('./posts'));
 /* for any other routes access from here
  router.use('/routerName',require('./routerfile'));
 */
+router.use('/signup',require('./signup'))
+router.use('/create-user',require('./create-user'));
 
 console.log('router loaded');
 module.exports = router;

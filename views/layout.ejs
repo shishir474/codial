@@ -1,0 +1,18 @@
+<!-- all the view files will be rendered according to this layout -->
+<html>
+<head>
+  <!-- This will be the common styling to all the files that are rendered using this layout --> 
+  <link rel="stylesheet" href="/css/layout.css">
+  <%- style %>
+</head>
+<body>
+  <%- include('_header') %>
+  <%- body %>  
+    <!-- Here body represents the bodypart of the view file that is going to be rendered -->
+  <%- include('_footer') %>
+  <%- script %>
+</body>
+
+
+</html>
+
