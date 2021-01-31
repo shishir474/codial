@@ -1,6 +1,6 @@
 // NOTE: keep commiting and pushing all your code on gitHub
 const express = require('express');
-const port = 8000;
+const port = 8080;
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
 const cookieParser = require('cookie-parser');
