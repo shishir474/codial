@@ -1,10 +1,11 @@
 // Since I'm using my collection User here I need to import it
+const passport = require('passport');
 const User = require('../models/User');
 
 module.exports.profile = function(req,res){
     // res.end('<h1>Rendered users profile succesfully</h1>')
     return res.render('user',{
-        title:'Shishir',
+        title:'user profile',
         number:'10,000'
     });
 } 
@@ -16,6 +17,11 @@ module.exports.userList = function(req,res){
 
 // render the sign up page
 module.exports.signUp = function(req,res){
+    if (req.isAuthenticated()){
+        // limiting the access of signup/signin page to user once signed in
+        return res.redirect('/users/profile');
+    }
+
     return res.render('user_sign_up',{
         title: 'codial|signUp'
     })
@@ -24,6 +30,11 @@ module.exports.signUp = function(req,res){
 
 // render the sign in page
 module.exports.signIn = function(req,res){
+    if (req.isAuthenticated()){
+        // limiting the access of signup/signin page to user once signed in
+        return res.redirect('/users/profile');
+    }
+
     return res.render('user_sign_in',{
         title: 'codial|signIn'
     })
@@ -60,10 +71,13 @@ module.exports.create = function(req,res){
 
 // sign in and create a session for the user
 module.exports.createSession = function(req,res){
-    // TODO later
+    return res.redirect('/');
 }
 
-
+module.exports.destroySession = function(req,res){
+    req.logout();
+    return res.redirect('/');
+}
 
 //NOTE::   ./ refers to just neighbours of my current file 
 //         ../ refers to the neighbours of my parent directory

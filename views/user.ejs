@@ -10,5 +10,9 @@
         <!-- as I've already included my header and footer in layout.ejs that's why I'm omitting(bcoz it's appering twice) this part in body part  -->
         <h1>Hey <%= title%>, you've got <%= number %> users </h1>
         <!-- <%- include('_footer') %> -->
+
+        <!-- as we've set the user in res.locals(after authentication) we're now able to access users data -->
+       <h1> <%= user.name %></h1> 
+        <h1> <%= user.email %> </h1>
     </body>
 </html>

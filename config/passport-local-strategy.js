@@ -3,6 +3,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/User');
+
 // authentication using passport
 passport.use(new LocalStrategy({
     usernameField:'email'
@@ -43,6 +44,26 @@ passport.deserializeUser(function(id, done){
         return done(null, user);
     });
 });
+
+// check if the user is authenticated
+passport.checkAuthentication = function(req,res,next){
+    if (req.isAuthenticated()){
+        // if the req is authenticated i.e. the user is signed in then pass on the req to the next function(controller action)
+        return next();
+    }
+   // if the user is not signed in
+    return res.redirect('/users/sign-in');
+}
+
+// set the user for the views if its authenticated
+passport.setAuthenticatedUser = function(req,res,next){
+    if (req.isAuthenticated()){
+// req.user contains the info of the current signed in user from the session cookie & we're just sending it the the locals for the views
+        res.locals.user = req.user;
+    }
+    next();
+}
+
 
 
 module.exports = passport;
