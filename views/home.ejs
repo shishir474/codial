@@ -28,6 +28,16 @@
             </form>
 
         </section>
+        
+        <ul>
+            <% for (post of posts){ %>
+               <li>
+                   <p><%= post.content%></p>
+                    <small><%= post.user.name %></small>
+               </li>
+            <%}%>
+        </ul>
+
 
         <!-- <%- include('_footer')%> -->
     </body>
