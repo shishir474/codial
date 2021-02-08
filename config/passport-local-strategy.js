@@ -60,7 +60,7 @@ passport.setAuthenticatedUser = function(req,res,next){
     if (req.isAuthenticated()){
 // req.user contains the info of the current signed in user from the session cookie & we're just sending it the the locals for the views
         res.locals.user = req.user;
-        res.locals.post = req.post;
+        
     }
     next();
 }

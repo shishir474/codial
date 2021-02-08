@@ -6,7 +6,7 @@ const postSchema = new mongoose.Schema({
     },
     user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'User' // ref option is what tells Mongoose which model to use during population
+        ref:'User' // ref option is what tells Mongoose which model to use during population. Here it is referring to User model
     }
 },{
     timestamps:true
