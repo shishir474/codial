@@ -1,3 +1,4 @@
+const Post = require('../models/post');
 // I'm exporting this home() so that I can use it in my routes folder.This fucntion is same as 
 // my callback function.Now I need to import this in my routes index.js file
 
@@ -13,5 +14,6 @@ module.exports.home = function(req,res){
         title:'Shishir'
     });
 }
+
 console.log('controller loaded')
 // module.exports.actionName = function(req,res){}

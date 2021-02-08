@@ -17,14 +17,18 @@
         <title></title>
     </head>
     <body>
-        <!-- <header>
-            Page header
-        </header> -->
-        <%- include('_header') %>
+        
+        <!-- <%- include('_header') %>  header and footer are already included in layout so thereby removing it  -->
         <h1>Codial/home page</h1>
-        <!-- <footer>
-            page footer
-        </footer> -->
-        <%- include('_footer')%>
+        <section id="feed-posts">
+            <h4>Posts</h4>
+            <form action="/posts/create" id="new-post-form" method="POST">
+                <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
+                <input type="submit" value="Post">
+            </form>
+
+        </section>
+
+        <!-- <%- include('_footer')%> -->
     </body>
 </html>
