@@ -22,18 +22,21 @@
         <h1>Codial/home page</h1>
         <section id="feed-posts">
             <h4>Posts</h4>
+            <!-- display form only if the user is authenticated. If authenticated then locals objecty will have user key -->
             <% if (locals.user) { %>
+                <!-- post form -->
             <form action="/posts/create" id="new-post-form" method="POST">
                 <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
                 <input type="submit" value="Post">
             </form>
+            
             <% } %>
 
         </section>
         
        
         <ul>
-            
+            <!-- displaying posts of a user -->
             <% for (post of posts){ %>
                <li>
                    <p>
@@ -41,6 +44,20 @@
                     <br>
                     <small><%= post.user.name %></small>
                    </p>
+                       <!-- comment form -->
+                       <div id="post-comment">
+                        <%  if (locals.user){ %>
+                            <form action="/comment/create" id="new-comment-form" method="POST">
+                                <input type="text" name="content" placeholder="Type Here to add comment...">
+                                <!-- sending id of the post to which the comment belongs to in a hidden manner -->
+                                <input type="hidden" name="post" value="<%= post._id%>">
+                                <input type="submit" value="Add comment">
+                            </form>
+                            <% } %>  
+        
+                       </div>
+                  
+
 
                    
                </li>

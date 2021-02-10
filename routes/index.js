@@ -12,6 +12,7 @@ Basically homeController is an object that has a property home which has a value
 */
 router.use('/users', require('./users'));
 router.use('/posts', require('./posts'));
+router.use('/comment', require('./comment'));
 /* for any other routes access from here
  router.use('/routerName',require('./routerfile'));
 */
