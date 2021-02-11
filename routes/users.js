@@ -13,7 +13,7 @@ router.post('/create',userController.create);
 
 // passport.authenticate() authenticates. IF the authentication is succesful userController.createSession action is called else failureRedirect
 router.post('/create-session',passport.authenticate(
-    'local',
+    'local',   // local here means we're using passport-local stratregy to authenticate
     {failureRedirect: '/users/sign-in'}
 ),userController.createSession);
 

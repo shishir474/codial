@@ -8,8 +8,9 @@ const User = require('../models/User');
 passport.use(new LocalStrategy({
     usernameField:'email'
 },
-function(email,password,done){
-    // find a user and establish the identity
+function(email,password,done){ // email,password passed to the function is basically that email,password that is sent by the form/entered by the user
+
+    // find a user with the help of email and establish the identity
     User.findOne({email: email}, function(err,user){
         if (err){
             console.log('Error in finding the user courtesy to passport');
@@ -17,6 +18,7 @@ function(email,password,done){
         }
 
         if (!user || user.password != password){
+            // if user doesn't exist or password mismatch happens 
             console.log('invalid username/password');
             return done(null, false);
         }

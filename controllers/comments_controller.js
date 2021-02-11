@@ -32,6 +32,7 @@ module.exports.createcomment = function(req,res){
                         return ;
                     }
                     // comment is created. NOw push it to comments array in post, on which comment was made
+                    // we're updating the comments array so we also need to save it
                     post.comments.push(newComment);
                     //  this wlll automatically place the comment id in the array
                     post.save();

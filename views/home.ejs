@@ -54,6 +54,26 @@
                                 <input type="submit" value="Add comment">
                             </form>
                             <% } %>  
+
+<!-- 
+                            displaying comments and author name
+                            prepopulated the comments and user -->
+                            <div id="post-comments-list">
+                                <ul id="post-comments-<%= post._id %>">
+                                    <% for (comment of post.comments) { %>
+                                        <p>
+                                            <%= comment.content %>
+                                            <br>
+                                            <small>
+                                                <%= comment.user.name%>
+                                            </small>
+                        
+                                        </p>
+
+
+                                    <% } %>
+                                </ul>
+                            </div>
         
                        </div>
                   

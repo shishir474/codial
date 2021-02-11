@@ -12,7 +12,15 @@ module.exports.home = function(req,res){
     // NOTE:: console.log will only be printed if we render the home page as it is written in home controller..That's the reason it wasn't printing earlier
     
     // find all the posts of the user and accessing it in the views(home.ejs) via pohe persons info by populating 
-    Post.find({}).populate('user').exec(function(err,posts){
+    Post.find({})
+    .populate('user')
+    .populate({
+        path : 'comments',
+        populate : {
+            path:'user'
+        }
+    })
+    .exec(function(err,posts){
         return res.render('home',{
             title:'Shishir',
             posts: posts

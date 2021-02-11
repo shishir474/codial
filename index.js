@@ -2,13 +2,27 @@
 const express = require('express');
 const port = 8000;
 const app = express();
+
+// USING LAYOUTS TO RENDER VIEWS
 const expressLayouts = require('express-ejs-layouts');
+
 const cookieParser = require('cookie-parser');
+
+// REQUIRE DB COLLECTION
 const db = require('./config/mongoose');
+
+// REQUIRE SCHEMA
 const User = require('./models/User');
+
 const session = require('express-session');
+
+// AUTHENTCATION USING PASSPORT
 const passport = require('passport');
+
+// USING LOCAL STRATEGY FOR AUTHENTICATION
 const passportLocal = require('./config/passport-local-strategy');
+
+// TO SAVE SESSION COOKIE IN DB
 const MongoStore = require('connect-mongo')(session);
 var sassMiddleware = require('node-sass-middleware');
 
@@ -30,7 +44,7 @@ app.use(express.static('./assets'));
 // inserts the form data in req.body as key-value pairs where key is the name of the input and value is the value given as an input by the user
 app.use(express.urlencoded());
 
-// telling my app to use the cookie parser so that I can access/alter it
+// telling my app to use the cookie parser so that I can access/alter COOKIE
 app.use(cookieParser());
 
 // all the views that are going to be rendered belongs to some sort of a layout.That's why we need to tell our app
