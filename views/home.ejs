@@ -40,6 +40,16 @@
             <% for (post of posts){ %>
                <li>
                    <p>
+                      <% if (locals.user && locals.user.id == post.user.id) { %>                                                   <!--.id converts into string format-->                               
+                        <!-- Delete option should be visible only if the user is signed in(i.e locals.user) and the user signed in(locals.user.id) is same as the user who has created the post(post.user.id) -->
+                        <small>
+                            <a href="/posts/destroy/<%= post.id %>">X</a>
+                        </small>
+                        
+
+                    <% } %>  
+
+
                     <%= post.content%>
                     <br>
                     <small><%= post.user.name %></small>
