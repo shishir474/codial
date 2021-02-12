@@ -46,9 +46,28 @@ module.exports.createcomment = function(req,res){
 
         }
     });
-
-
-
-
-   
 }
+// delete comment
+module.exports.destroy = function(req,res){
+    comment.findById(req.params.id, function(err,comment){
+
+        if (comment.user == req.user.id){
+            // one who is seending req to delete is the one who has created that comment
+            // before deleting comment save post id bcoz we also need to remove the comment from that post's comments array as well. So if we delete comment before we'll lose the post id
+            let postId = comment.post;
+
+            // Now delete comment
+            comment.remove();
+
+            //now deleting the same comment from post's comments array. For this I need to find the post using postId
+            Post.findByIdAndUpdate(postId , {$pull : {comments : req.params.id}}, function(err,post){
+                return res.redirect('back');
+            });
+        }else{
+            return res.redirect('back');
+        }
+    });
+}
+
+
+
