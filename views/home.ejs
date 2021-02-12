@@ -39,66 +39,7 @@
             <!-- displaying posts of a user -->
             <% for (post of posts){ %>
                <li>
-                   <p>
-                      <% if (locals.user && locals.user.id == post.user.id) { %>                                                   <!--.id converts into string format-->                               
-                        <!-- Delete option should be visible only if the user is signed in(i.e locals.user) and the user signed in(locals.user.id) is same as the user who has created the post(post.user.id) -->
-                        <small>
-                            <a href="/posts/destroy/<%= post.id %>">X</a>
-                        </small>
-                        
-
-                    <% } %>  
-
-
-                    <%= post.content%>
-                    <br>
-                    <small><%= post.user.name %></small>
-                   </p>
-                       <!-- comment form -->
-                       <div id="post-comment">
-                        <%  if (locals.user){ %>
-                            <form action="/comment/create" id="new-comment-form" method="POST">
-                                <input type="text" name="content" placeholder="Type Here to add comment...">
-                                <!-- sending id of the post to which the comment belongs to in a hidden manner -->
-                                <input type="hidden" name="post" value="<%= post._id%>">
-                                <input type="submit" value="Add comment">
-                            </form>
-                            <% } %>  
-
-<!-- 
-                            displaying comments and author name
-                            prepopulated the comments and user -->
-                            <div id="post-comments-list">
-                                <ul id="post-comments-<%= post._id %>">
-                                    <% for (comment of post.comments) { %>
-                                        <p>
-                                             <!-- Delete option for comments -->
-                                            <% if (locals.user && locals.user.id == comment.user.id) { %>                                                   <!--.id converts into string format-->                               
-                                                <!-- Delete option should be visible only if the user is signed in(i.e locals.user) and the user signed in(locals.user.id) is same as the user who has created the post(post.user.id) -->
-                                                <small>
-                                                    <a href="/comment/destroy/<%= comment.id %>">X</a>
-                                                </small>
-                                                
-
-                                            <% } %>  
-                                            <%= comment.content %>
-                                            <br>
-                                            <small>
-                                                <%= comment.user.name%>
-                                            </small>
-                        
-                                        </p>
-
-
-                                    <% } %>
-                                </ul>
-                            </div>
-        
-                       </div>
-                  
-
-
-                   
+                   <%- include('_post') -%>
                </li>
             <%}%>
         </ul>
