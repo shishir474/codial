@@ -15,49 +15,53 @@
 <html>
     <head>
         <title></title>
+        <link rel="stylesheet" href="/css/home.css">
     </head>
     <body>
         
         <!--  since we're loading this page according to a layout we're removing this line <- include('_header') %>   -->
         <!-- header and footer are already included in layout so thereby removing it -->
-        <h1>Codial/home page</h1>
-        <section id="feed-posts">
-            <h4>Posts</h4>
-            <!-- display form only if the user is authenticated. If authenticated then locals objecty will have user key -->
-            <% if (locals.user) { %>
-                <!-- post form -->
-            <form action="/posts/create" id="new-post-form" method="POST">
-                <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
-                <input type="submit" value="Post">
-            </form>
-            
-            <% } %>
+        <!-- <h1>Codial/home page</h1> -->
+ 
+        <div id="home-container">
+            <section id="feed-posts">
+                <h4>Posts</h4>
+                <!-- display form only if the user is authenticated. If authenticated then locals objecty will have user key -->
+                <% if (locals.user) { %>
+                  <!-- post form -->
+                    <form action="/posts/create" id="new-post-form" method="POST">
+                         <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
+                         <input type="submit" value="Post">
+                    </form>
+                <% } %>
+  
+                <ul>
+                  <!-- displaying posts of a user -->
+                  <% for (post of posts){ %>
+                     <li>
+                         <%- include('_post') -%>
+                     </li>
+                  <%}%>
+              </ul>
+  
+          </section>
+  
+          <!-- Displaying all the users on home page only if the user is logged in. For this I need to fetch all the users. SO go to homeController and pass reference of all users -->
+          <% if (locals.user){ %>   
+          <section id="user-friends">
+              <h4>Friends</h4>
+              <% for (u of all_users){ %>
+                  <p>
+                      <!-- linking the name of the user to its profile. That's why passing the user id as part of URL -->
+                      <!-- since we're modifying route make the corresponding changes in the router user.js -->
+                      <a href="/users/profile/<%= u.id %>"> <%= u.name %> </a>  
+                  </p>
+              <% } %>
+          </section>
+         <% } %>
+        </div>
 
-        </section>
         
-       
-        <ul>
-            <!-- displaying posts of a user -->
-            <% for (post of posts){ %>
-               <li>
-                   <%- include('_post') -%>
-               </li>
-            <%}%>
-        </ul>
-
-        <!-- Displaying all the users on home page only if the user is logged in. For this I need to fetch all the users. SO go to homeController and pass reference of all users -->
-        <% if (locals.user){ %>   
-        <section id="user-friends">
-            <h4>Friends</h4>
-            <% for (u of all_users){ %>
-                <p>
-                    <!-- linking the name of the user to its profile. That's why passing the user id as part of URL -->
-                    <!-- since we're modifying route make the corresponding changes in the router user.js -->
-                    <a href="/users/profile/<%= u.id %>"> <%= u.name %> </a>  
-                </p>
-            <% } %>
-        </section>
-       <% } %>
  
         <!-- <%- include('_footer')%> -->
     </body>
