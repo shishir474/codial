@@ -2,6 +2,7 @@
 // my callback function.Now I need to import this in my routes index.js file
 
 const Post = require("../models/post");
+const User = require("../models/User");
 
 module.exports.home = function(req,res){
     // res.end('<h1>Express is up for codial</h1>');
@@ -21,10 +22,17 @@ module.exports.home = function(req,res){
         }
     })
     .exec(function(err,posts){
-        return res.render('home',{
-            title:'Shishir',
-            posts: posts
-        });
+        // fetch all users and pass its refernce to home.ejs. Since we're using User model we need to import it
+        User.find({},function(err,users){
+            return res.render('home',{
+                title:'Shishir',
+                posts: posts,
+                all_users: users
+            });
+
+        })
+
+        
     });
 
 

@@ -24,15 +24,19 @@ const passportLocal = require('./config/passport-local-strategy');
 
 // TO SAVE SESSION COOKIE IN DB
 const MongoStore = require('connect-mongo')(session);
-var sassMiddleware = require('node-sass-middleware');
 
+// using sass Middleware package to use sass
+const sassMiddleware = require('node-sass-middleware');
+
+// these are the settings that I need to put for using SASS.I put this just before the server starts bcoz I need these files to be precompiled which are then served to the browser
+// Browser only understands CSS. at compilation these SASS files get converted to CSS files
 app.use(sassMiddleware({
    src: './assets/scss',
    dest: './assets/css',
-   debug: true,
-   outputStyle: 'extended',
+   debug: true, // do I need to display errors that are in the files during compilation.Yes obviously so Set to true. SEt to false if in production mode
+   outputStyle: 'extended', // do I want everything to be in a single line.NO obviously. We want it to e in multiple lines so extended
    prefix: '/css' // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
-
+   //  prefix specifies where my server should look out for CSS files.. In /css folder
 }));
 
 

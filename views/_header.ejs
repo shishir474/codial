@@ -1,24 +1,23 @@
 <header>
-    <div>
-        <h3>codial</h3>
+    <div id="header">
+        <div>codial</div>
 
-    
+    <div id="auth-links">
         <% if (locals.user) { %>   
             <!-- if locals .user exists => user is signed in -->
         
-           <li><a href="/users/profile"> <%= user.name %></a> </li> 
-
-           <li> <a href="/users/sign-out"> Sign Out</a> </li> 
+           <a href="/users/profile"> <%= user.name %></a>  
+ 
+            <a href="/users/sign-out"> Sign-Out</a>
     
          <% } else { %>
      
-            <li> <a href="/users/sign-in">sign-in</a></li>
-            <li><a href="/users/sign-up">sign-up</a></li>
+             <a href="/users/sign-in">Sign-in</a> 
+            <a href="/users/sign-up">Sign-up</a>
              
              
          <% } %>
     </div>
-    
-    
-    
+     
+    </div>
 </header>

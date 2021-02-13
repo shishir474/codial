@@ -4,10 +4,19 @@ const User = require('../models/User');
 
 module.exports.profile = function(req,res){
     // res.end('<h1>Rendered users profile succesfully</h1>')
-    return res.render('user',{
-        title:'user profile',
-        number:'10,000'
-    });
+ 
+     // I need to find the user with the help of id that is coming as part of the route
+     User.findById(req.params.id, function(err,user){
+        
+        return res.render('user',{
+            title:'user profile',
+            number:'10,000',
+            user:user
+        });
+
+     })
+
+    
 } 
 //Now i've exported my contoller function nd now I need to import it in router file(users.js)
 
