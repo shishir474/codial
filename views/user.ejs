@@ -12,7 +12,27 @@
         <!-- <%- include('_footer') %> -->
 
         <!-- as we've set the user in res.locals(after authentication) we're now able to access users data -->
-       <h1> <%= user.name %></h1> 
-        <h1> <%= user.email %> </h1>
+       
+
+       <% if (profile_user.id == user.id ){%>
+
+        <p> <%= profile_user.name %></p> 
+        <p> <%= profile_user.email %> </p>
+
+        <h2>Update Profile</h2>
+         <!-- user matches then show the form. Here we're only providing option for updating name and email,not password -->
+         <form action="/users/update/<%= profile_user.id%>" method="POST">
+              <input type="text" name="name" value="<%=profile_user.name%>" placeholder="Your Name.." required>
+               <input type="email" name="email" value="<%=profile_user.email %>" placeholder="Your Email.." required>
+           <!-- Here we've initialized name and email with the existing name and email. which is going to be updated -->
+                 <input type="submit" value="Update">
+        </form>
+        
+       <%}else{ %>
+           <!-- show only the user's profile info -->
+           <p> <%= profile_user.name %></p> 
+           <p> <%= profile_user.email %> </p>
+       <%} %>
+
     </body>
 </html>

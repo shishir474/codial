@@ -6,7 +6,7 @@
         <% if (locals.user) { %>   
             <!-- if locals .user exists => user is signed in -->
         
-           <a href="/users/profile"> <%= user.name %></a>  
+           <a href="/users/profile/<%= user.id %>" > <%= user.name %></a>  
  
             <a href="/users/sign-out"> Sign-Out</a>
     

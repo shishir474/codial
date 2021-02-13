@@ -11,7 +11,7 @@ module.exports.profile = function(req,res){
         return res.render('user',{
             title:'user profile',
             number:'10,000',
-            user:user
+            profile_user:user
         });
 
      })
@@ -87,6 +87,20 @@ module.exports.destroySession = function(req,res){
     req.logout();
     return res.redirect('/');
 }
+
+// action for updating the user
+module.exports.update = function(req,res){
+    if (req.user.id == req.params.id){
+        // checking the one who is sending the req is the one whose id is the part of the URL. Someone could fiddle with that id (in chrome dev tools) which will cause updation of other's profile
+        User.findByIdAndUpdate(req.params.id, req.body, function(err,user){
+            // callback would either throw an error or would give us an updated user
+            return res.redirect('back');
+        });
+    }else{
+        return res.status(401).send('Unauthorized');
+    }
+}
+
 
 //NOTE::   ./ refers to just neighbours of my current file 
 //         ../ refers to the neighbours of my parent directory
