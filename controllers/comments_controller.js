@@ -38,7 +38,7 @@ module.exports.createcomment = function(req,res){
                     post.save();
                     
         
-                    console.log('********',newComment);
+                    //console.log('********',newComment);
                     res.redirect('/');
             });
    

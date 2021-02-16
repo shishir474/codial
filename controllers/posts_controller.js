@@ -12,50 +12,55 @@ module.exports.postLikes = function(req,res){
 }
 
 // creating an action to submit the data of the form and save it in database
-module.exports.createpost = function(req,res){
+module.exports.createpost = async function(req,res){
 
-    // since we're using Post schema we need to import it
+    try {
+        // since we're using Post schema we need to import it
     // Here user refers to the person who has posted the content which is req.user._id
-    Post.create({
-        content:req.body.content,
-        user:req.user._id // NOTE: since we need to mark the user who created the post we didn't wrote directly(like req.body bcoz on doing this user field is not present in the db refer robo 3t 1st post)
-        // user is req.user._id
-     },function(err,newPost){
-        if (err){
-            console.log('error in creating the post');
-            return ;
-        }
-        console.log('********',newPost);
-       return res.redirect('back');
-    });
+         await Post.create({
+          content:req.body.content,
+          user:req.user._id // NOTE: since we need to mark the user who created the post we didn't wrote directly(like req.body bcoz on doing this user field is not present in the db refer robo 3t 1st post)
+         // user is req.user._id
+      });
+      // console.log('********',newPost);
+         return res.redirect('back');
+
+    } catch (error) {
+        console.log('Error',error);
+        return ;
+    }
+    
 }
 
 // deleting posts
 
-module.exports.destroy = function(req,res){
-    //  route will be /posts/destroy/id   id => string params
+module.exports.destroy = async function(req,res){
+  try {
+           //  route will be /posts/destroy/id   id => string params
     // finding the post in db using id paramater that is a part of the url before deleting
     // we access string params using req.params
-    Post.findById(req.params.id, function(err,post){
-        // post found 
-        // authorization part:  Am I authorized to delete the post posted by someone else.. Obviously not. So check whether the user who is deleting the post is the same user who has created the post
-        // post.user is an id of the user(until and unless I populate). It returns string id
-        // When I'm compairing id's of two objects I need to covert them both in string format
-        // Ideally we should be using req.user._id but we're using .id.
-        // .id means converting the object id into string
-        if (post.user == req.user.id){
-            //removepost
-            post.remove();
+    let post = await Post.findById(req.params.id);
+    // post found 
+   // authorization part:  Am I authorized to delete the post posted by someone else.. Obviously not. So check whether the user who is deleting the post is the same user who has created the post
+   // post.user is an id of the user(until and unless I populate). It returns string id
+   // When I'm compairing id's of two objects I need to covert them both in string format
+   // Ideally we should be using req.user._id but we're using .id.
+   // .id means converting the object id into string
+   if (post.user == req.user.id){
+       //removepost
+       post.remove();
 
-            // deleting comments. For this I need to import comment model
-            // deleteMany function deletes all the comments based on some queries passed
-            Comment.deleteMany({post:req.params.id}, function(err){
-                return res.redirect('back');
-            });
+       // deleting comments. For this I need to import comment model
+       // deleteMany function deletes all the comments based on some queries passed
+      await Comment.deleteMany({post:req.params.id});
+          return res.redirect('back');
 
-        }else{
-            // user doesn't match so cant delete
-            return res.redirect('back');
-        }
-    })
+   }else{
+       // user doesn't match so cant delete
+       return res.redirect('back');
+   }
+  } catch (error) {
+     console.log('Error',error);
+     return ;    
+  }
 }

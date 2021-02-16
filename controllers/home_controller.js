@@ -4,39 +4,37 @@
 const Post = require("../models/post");
 const User = require("../models/User");
 
-module.exports.home = function(req,res){
+module.exports.home = async function(req,res){
     // res.end('<h1>Express is up for codial</h1>');
     
     // UNDERSTANDING COOKIE
     // console.log(req.cookies);
     // res.cookie('hey', 'swapnil');
     // NOTE:: console.log will only be printed if we render the home page as it is written in home controller..That's the reason it wasn't printing earlier
-    
-    // find all the posts of the user and accessing it in the views(home.ejs) via pohe persons info by populating 
-    Post.find({})
-    .populate('user')
-    .populate({
-        path : 'comments',
-        populate : {
+            
+     try {
+            // find all the posts of the user and accessing it in the views(home.ejs) via pohe persons info by populating 
+            let posts = await Post.find({})
+            .populate('user')
+            .populate({
+            path : 'comments',
+            populate : {
             path:'user'
-        }
-    })
-    .exec(function(err,posts){
-        // fetch all users and pass its refernce to home.ejs. Since we're using User model we need to import it
-        User.find({},function(err,users){
-            return res.render('home',{
-                title:'Shishir',
-                posts: posts,
-                all_users: users
-            });
+            }
+        });
+       // fetch all users and pass its refernce to home.ejs. Since we're using User model we need to import it
+          const users = await User.find({});
 
-        })
+          return res.render('home',{
+              title:'Shishir',
+              posts: posts,
+              all_users: users
+          });
 
-        
-    });
-
-
-
+     } catch (err) {
+         console.log('Error', err);
+         return ;
+     }
 
 }
 

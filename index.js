@@ -14,6 +14,7 @@ const db = require('./config/mongoose');
 // REQUIRE SCHEMA
 const User = require('./models/User');
 
+// once the user establishes identity(i.e. logged in) that identity is saved in session cookie using express session 
 const session = require('express-session');
 
 // AUTHENTCATION USING PASSPORT
@@ -80,7 +81,10 @@ app.use(session({
     })
 }));
 
+//  initialise passport module
 app.use(passport.initialize());
+// passport.session() alters 'user' value that is currently the ssession id into the true deserialized user object
+//app.use(passport.session()) is equivalent to app.use(passport.authenticate('session')
 app.use(passport.session());
 
 // for settng user in res.locals

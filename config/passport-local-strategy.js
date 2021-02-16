@@ -31,11 +31,13 @@ function(email,password,done){ // email,password passed to the function is basic
 
 
 // serializing the user to decide which key is to be kept in the cookies
+// serialize user is setting id as cookie in user's browser
 passport.serializeUser(function(user, done){
     done(null, user.id);
 });
 
 // deserializing the user from the key in the cookies
+// deserializeUser is getting id from the cookie, which is then used in callback to get user info 
 passport.deserializeUser(function(id, done){
     User.findById(id, function(err,user){
         if (err){
@@ -62,7 +64,7 @@ passport.setAuthenticatedUser = function(req,res,next){
     if (req.isAuthenticated()){
 // req.user contains the info of the current signed in user from the session cookie & we're just sending it the the locals for the views
         res.locals.user = req.user;
-        
+        // res.locals is available to the view's rednered/ frontend part
     }
     next();
 }
