@@ -4,6 +4,7 @@
 const Post = require("../models/post");
 const User = require("../models/User");
 
+// async indicates that these function contains some aync statements
 module.exports.home = async function(req,res){
     // res.end('<h1>Express is up for codial</h1>');
     
@@ -21,9 +22,10 @@ module.exports.home = async function(req,res){
             populate : {
             path:'user'
             }
-        });
+          });
        // fetch all users and pass its refernce to home.ejs. Since we're using User model we need to import it
           const users = await User.find({});
+        //   success
 
           return res.render('home',{
               title:'Shishir',

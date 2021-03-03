@@ -1,6 +1,6 @@
 // NOTE: keep commiting and pushing all your code on gitHub
 const express = require('express');
-const port = 8000;
+const port = 8080;
 const app = express();
 
 // USING LAYOUTS TO RENDER VIEWS
@@ -28,6 +28,9 @@ const MongoStore = require('connect-mongo')(session);
 
 // using sass Middleware package to use sass
 const sassMiddleware = require('node-sass-middleware');
+
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
 
 // these are the settings that I need to put for using SASS.I put this just before the server starts bcoz I need these files to be precompiled which are then served to the browser
 // Browser only understands CSS. at compilation these SASS files get converted to CSS files
@@ -89,6 +92,8 @@ app.use(passport.session());
 
 // for settng user in res.locals
 app.use(passport.setAuthenticatedUser);
+app.use(flash());
+app.use(customMware.setFlash);
 
 // use express router
 app.use('/',require('./routes'));
@@ -102,3 +107,6 @@ app.listen(port,function(err){
     }
     console.log(`server is running on port: ${port}`);
 })
+
+
+// 

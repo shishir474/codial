@@ -50,41 +50,47 @@ module.exports.signIn = function(req,res){
 }
 
 // get the sign up data
-module.exports.create = function(req,res){
-   // if password and confirm_password aren't same then return back
-    if (req.body.password != req.body.confirm_password){
-        return res.redirect('back');
+module.exports.create = async function(req,res){
+    try {
+            // if password and confirm_password aren't same then return back
+            if (req.body.password != req.body.confirm_password){
+                req.flash('error', 'password and confirm password does not match');
+                return res.redirect('back');
+            }
+
+            // password and confirm_password are same so we will try to find the user by its email(email is unique to every user)
+            // If it exists then we do not create it else we create it
+            
+             let user = await User.findOne({email: req.body.email});
+        
+            if (!user){
+            // user does not exist
+                await User.create(req.body);
+                req.flash('success', 'user created succesfully!')
+                    return res.redirect('/users/sign-in');
+            }else{
+                // user exists
+                req.flash('success', 'user already exists');
+                return res.redirect('back')
+                // In both cases when password doesn't match with confirm password and user already exists we're redirecting back.
+            }
+    } catch (error) {
+        //console.log('Error',error);
+        req.flash('error', error);
+        return ;
     }
-
-    // password and confirm_password are same so we will try to find the user by its email(email is unique to every user)
-    // If it exists then we do not create it else we create it
-     
-   User.findOne({email: req.body.email}, function(err,user){
-       if (err){console.log('error in finding user in signing up'); return}
-
-       if (!user){
-           // user does not exist
-           User.create(req.body,function(err,user){
-               if (err){console.log('error in creating user while signing up'); return}
-
-               return res.redirect('/users/sign-in');
-           })
-       }else{
-           // user exists
-           return res.redirect('back')
-           // In both cases when password doesn't match with confirm password and user already exists we're redirecting back.
-       }
-   });
 
 }
 
 // sign in and create a session for the user
 module.exports.createSession = function(req,res){
+    req.flash('success', 'Logged in succesfully');
     return res.redirect('/');
 }
 
 module.exports.destroySession = function(req,res){
     req.logout();
+    req.flash('success', 'You have Logged out!');
     return res.redirect('/');
 }
 
@@ -94,9 +100,11 @@ module.exports.update = function(req,res){
         // checking the one who is sending the req is the one whose id is the part of the URL. Someone could fiddle with that id (in chrome dev tools) which will cause updation of other's profile
         User.findByIdAndUpdate(req.params.id, req.body, function(err,user){
             // callback would either throw an error or would give us an updated user
+            req.flash('success', 'user updated successfully!')
             return res.redirect('back');
         });
     }else{
+        req.flash('error', 'You are not authorized to update the profile')
         return res.status(401).send('Unauthorized');
     }
 }

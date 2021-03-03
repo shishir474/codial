@@ -1,6 +1,9 @@
 <!-- all the view files will be rendered according to this layout -->
 <html>
 <head>
+  <!-- including links for noty js via cdn -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
   <!-- This will be the common styling to all the files that are rendered using this layout --> 
   <link rel="stylesheet" href="/css/layout.css">
   <link rel="stylesheet" href="/css/header.css">
@@ -9,15 +12,59 @@
 </head>
 <body>
   <%- include('_header') %>
+
+   
+  <!-- <% if(flash.success && flash.success.length > 0) {%>
+    // this is the simple plain notification text.. no animations..Now we'll use noty.js(included using cdn <link> and <script>) for featuring more advanced and beutiful notifications
+      <h5>
+        <%= flash.success %>
+      </h5>
+    <% } %> -->
+
   <main id="layout-main">
     <%- body %> 
   </main>
    
     <!-- Here body represents the bodypart of the view file that is going to be rendered -->
-  <%- include('_footer') %>
+    <%- include('_footer') %>
   <%- script %>
+
+  <script>
+    // script tag for displaying notifiations using noty js
+      <% if(flash.success && flash.success.length > 0) { %>
+                  // refer google: noty js and cdn noty js 
+            new Noty({
+              theme: 'relax',
+              // text part specifies the notification text content
+              text: "<%= flash.success %>",
+              // type is color scheme like info, success, warning, error, alert
+              type: 'success',
+              // layout specifies where do I want it to display the notification
+              layout: 'topRight',
+              timeout: '1500'
+      
+          }).show();
+    
+      <% } %>
+
+      // notification for error
+      <% if(flash.error && flash.error.length > 0) { %>
+                  // refer google: noty js and cdn noty js 
+          new Noty({
+            theme: 'relax',
+            // text part specifies the notification text content
+            text: "<%= flash.error %>",
+            // type is color scheme like info, success, warning, error, alert
+            type: 'error',
+            // layout specifies where do I want it to display the notification
+            layout: 'topRight',
+            timeout: 1500
+    
+        }).show();
+    
+      <% } %>
+  </script>
 </body>
 
 
 </html>
-

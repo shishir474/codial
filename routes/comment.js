@@ -9,3 +9,14 @@ router.post('/create',passport.checkAuthentication, commentsController.createcom
 router.get('/destroy/:id',passport.checkAuthentication, commentsController.destroy);
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+

@@ -3,8 +3,10 @@
         @Coding Ninjas. All rights reserved&nbsp; &nbsp;&nbsp;
     </div>
     <div>
-        <a href="/">Home</a> &nbsp; &nbsp;
-        <a href="/users/profile/<%= user.id %>"> Profile </a>
+        <% if (locals.user) { %> 
+           <a href="/">Home</a> &nbsp; &nbsp;
+            <a href="/users/profile/<%= user.id %>"> Profile </a>
+        <% } %>
     </div>
     
 </footer>
