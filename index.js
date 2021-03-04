@@ -1,6 +1,6 @@
 // NOTE: keep commiting and pushing all your code on gitHub
 const express = require('express');
-const port = 8080;
+const port = 8000;
 const app = express();
 
 // USING LAYOUTS TO RENDER VIEWS

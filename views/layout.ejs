@@ -1,14 +1,17 @@
 <!-- all the view files will be rendered according to this layout -->
 <html>
 <head>
-  <!-- including links for noty js via cdn -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
-  <!-- This will be the common styling to all the files that are rendered using this layout --> 
-  <link rel="stylesheet" href="/css/layout.css">
-  <link rel="stylesheet" href="/css/header.css">
-  <link rel="stylesheet" href="/css/footer.css">
-  <%- style %>
+    <!-- including links for noty js via cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+
+    <!-- jquery cdn.... included in layout so that all other pages are able to use it-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- This will be the common styling to all the files that are rendered using this layout --> 
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <%- style %>
 </head>
 <body>
   <%- include('_header') %>

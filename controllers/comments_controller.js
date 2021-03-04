@@ -69,50 +69,50 @@ module.exports.createcomment = async function(req,res){
 //     return ;
 //    }
 // }
-// module.exports.destroy = function(req, res){
-//     comment.findById(req.params.id, function(err, comment){
-//         if (err){
-//             console.log('Error', err);
-//             return ;
-//         }
-//         // console.log(comment.content);
-//         // return res.redirect('back');
-//         if (comment.user == req.user.id){
-//             let postId = comment.post;
-//             comment.remove();
-//             Post.findByIdAndUpdate(postId , {$pull : {comments : req.params.id}}, function(err, post){
-//                 req.flash('success', 'comment deleted!')    
-//                 return res.redirect('back');
-//            });
-      
-//         }else{
-//              req.flash('error', 'you are not authorized to delete this comment');
-//              return res.redirect('back');
-//          }
-//     });
-// }
-
-
-
-module.exports.destroy = async function(req, res){
-
-    try {
-            let comment = await comment.findById(req.params.id);
-            if (comment.user == req.user.id){
-                let postId = comment.post;
-                comment.remove();
-                let post = await Post.findByIdAndUpdate(postId , {$pull : {comments : req.params.id}});
-                req.flash('success', 'comment deleted!');
-                return res.redirect('back');  
-        
-            }else{
-                req.flash('error', 'you are not authorized to delete this comment');
+module.exports.destroy = function(req, res){
+    comment.findById(req.params.id, function(err, comment){
+        if (err){
+            console.log('Error', err);
+            return ;
+        }
+        // console.log(comment.content);
+        // return res.redirect('back');
+        if (comment.user == req.user.id){
+            let postId = comment.post;
+            comment.remove();
+            Post.findByIdAndUpdate(postId , {$pull : {comments : req.params.id}}, function(err, post){
+                req.flash('success', 'comment deleted!')    
                 return res.redirect('back');
-            }
-    } catch (error) {
-        req.flash('error', 'error in delteing comment');
-        return res.redirect('back');
-    }
-  }
+           });
+      
+        }else{
+             req.flash('error', 'you are not authorized to delete this comment');
+             return res.redirect('back');
+         }
+    });
+}
+
+
+
+// module.exports.destroy = async function(req, res){
+
+//     try {
+//             let comment = await comment.findById(req.params.id);
+//             if (comment.user == req.user.id){
+//                 let postId = comment.post;
+//                 comment.remove();
+//                 let post = await Post.findByIdAndUpdate(postId , {$pull : {comments : req.params.id}});
+//                 req.flash('success', 'comment deleted!');
+//                 return res.redirect('back');  
+        
+//             }else{
+//                 req.flash('error', 'you are not authorized to delete this comment');
+//                 return res.redirect('back');
+//             }
+//     } catch (error) {
+//         req.flash('error', 'error in delteing comment');
+//         return res.redirect('back');
+//     }
+//   }
 
 

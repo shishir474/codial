@@ -15,18 +15,31 @@ module.exports.postLikes = function(req,res){
 module.exports.createpost = async function(req,res){
 
     try {
-        // since we're using Post schema we need to import it
-    // Here user refers to the person who has posted the content which is req.user._id
-         await Post.create({
-          content:req.body.content,
-          user:req.user._id // NOTE: since we need to mark the user who created the post we didn't wrote directly(like req.body bcoz on doing this user field is not present in the db refer robo 3t 1st post)
-         // user is req.user._id
-        });
-      // console.log('********',newPost);
+            // since we're using Post schema we need to import it
+            // Here user refers to the person who has posted the content which is req.user._id
+                let post = await Post.create({
+                content:req.body.content,
+                user:req.user._id // NOTE: since we need to mark the user who created the post we didn't wrote directly(like req.body bcoz on doing this user field is not present in the db refer robo 3t 1st post)
+                // user is req.user._id
+                });
+            //    console.log('********',post);
+            
 
-      // adding a flash message for successfull creation of the post
-      req.flash('success', 'post published!');
-      return res.redirect('back');
+            // since we're sending the form data using jquery ajax we need to view this form data in posts_controller
+            // checking whether req is ajax req or not.. The type of ajax request is XML hTTP Request(xhr)
+            if (req.xhr){
+                // ajax request => I need to return some json. we return json with some status(here post is succesfully created so 200)
+                return res.status(200).json({
+                    data:{
+                        post: post //this post is the post which is created at line 20.. collecting it in a variable and passing it
+                    },
+                    message:'Post created!' // we need to include a message while sending json data back
+                });  // this json data that we're returning is the one which we're recieving in success handlre function
+            }
+
+            // adding a flash message for successfull creation of the post
+            req.flash('success', 'post published!');
+            return res.redirect('back');
 
     } catch (error) {
         //console.log('Error',error);
