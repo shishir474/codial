@@ -20,6 +20,7 @@
                         // console.log(resData); => I've succesfully recieved the form data so now I just need to display it
                         let newPost = newPostDom(resData.data.post);
                         $('#posts-list-container > ul').prepend(newPost);  // prepend means putting it at the first position.. so now the post will be added at the top
+                        deletePost($(' .delete-post-button', newPost));
                     }, error: function(error){
                         console.log(error.responseText);
                     }
@@ -27,7 +28,6 @@
         });
     }
 
-    createPost();
 
     
     // method to create a post in DOM
@@ -40,7 +40,7 @@
                         <p>
                                    
                                 <small>
-                                    <a href="/posts/destroy/${post.id}" class="delete-post-button">X</a>
+                                    <a href="/posts/destroy/${post._id}" class="delete-post-button">X</a>
                                 </small>
 
                                 ${post.content}
@@ -68,4 +68,30 @@
                         </div>
             </li>`)
     }
+
+
+
+
+    // method to delete post via DOM
+    let deletePost = function(deletelink){
+        $(deletelink).click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                method: 'GET',
+                url: $(deletelink).prop('href'),
+                success: function(resData){
+                    $(`#post-${resData.data.post_id}`).remove();
+                },
+                error: function(error){
+                    console.log(error.responseText);
+                }
+            });
+
+
+        })
+    }
+
+
+    createPost();
 }

@@ -70,7 +70,18 @@ module.exports.destroy = async function(req,res){
                 // deleting comments. For this I need to import comment model
                 // deleteMany function deletes all the comments based on some queries passed
                 await Comment.deleteMany({post:req.params.id});
+                
+                if (req.xhr){
+                    return res.status(200).json({
+                        data:{
+                            post_id: req.params.id
+                        },
+                        message: 'Post deleted'
+                    })
+                }
+
                 req.flash('success', 'Post and associated comments deleted!');
+
                 return res.redirect('back');
 
         }else{
