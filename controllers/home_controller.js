@@ -19,9 +19,9 @@ module.exports.home = async function(req,res){
             .sort('-createdAt')
             .populate('user')
             .populate({
-            path : 'comments',
-            populate : {
-            path:'user'
+              path : 'comments',
+              populate : {
+              path:'user'
             }
           });
        // fetch all users and pass its refernce to home.ejs. Since we're using User model we need to import it

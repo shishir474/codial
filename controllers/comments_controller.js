@@ -28,6 +28,16 @@ module.exports.createcomment = async function(req,res){
                         post.comments.push(newComment);
                         //  this wlll automatically place the comment id in the array
                         post.save();
+
+                        newComment = await newComment.populate('user', 'name').execPopulate();
+                        if (req.xhr){
+                            return res.status(200).json({
+                                data: {
+                                    comment: newComment
+                                },
+                                message: 'Comment created succesfully!'
+                            });1
+                        }
                         
                         req.flash('success', 'comment posted successfully!');
                         //console.log('********',newComment);
@@ -43,76 +53,78 @@ module.exports.createcomment = async function(req,res){
     }
 
 //delete comment
-// module.exports.destroy = async function(req,res){
-//    try {
-//         let comment = await comment.findById(req.params.id);
-//         if (comment.user == req.user.id){
-//             // one who is seending req to delete is the one who has created that comment
-//             // before deleting comment save post id bcoz we also need to remove the comment from that post's comments array as well. So if we delete comment before we'll lose the post id
-//             let postId = comment.post;
-
-//             // Now delete comment
-//             comment.remove();
-
-//             //now deleting the same comment from post's comments array. For this I need to find the post using postId
-//             Post.findByIdAndUpdate(postId , {$pull : {comments : req.params.id}});
-//             req.flash('success', 'comment deleted succesfully1');
-//             return res.redirect('back');
-            
-//         }else{
-//             req.flash('error', 'you are not authorized to delete this comment');
-//             return res.redirect('back');
+// module.exports.destroy = function(req, res){
+//     comment.findById(req.params.id, function(err, comment){
+//         if (err){
+//             console.log('Error', err);
+//             return ;
 //         }
-//    } catch (error) {
-//     //console.log('Error',error);
-//      req.flash('error', error);
-//     return ;
-//    }
-// }
-module.exports.destroy = function(req, res){
-    comment.findById(req.params.id, function(err, comment){
-        if (err){
-            console.log('Error', err);
-            return ;
-        }
-        // console.log(comment.content);
-        // return res.redirect('back');
-        if (comment.user == req.user.id){
-            let postId = comment.post;
-            comment.remove();
-            Post.findByIdAndUpdate(postId , {$pull : {comments : req.params.id}}, function(err, post){
-                req.flash('success', 'comment deleted!')    
-                return res.redirect('back');
-           });
-      
-        }else{
-             req.flash('error', 'you are not authorized to delete this comment');
-             return res.redirect('back');
-         }
-    });
-}
-
-
-
-// module.exports.destroy = async function(req, res){
-
-//     try {
-//             let comment = await comment.findById(req.params.id);
-//             if (comment.user == req.user.id){
+//         console.log(comment);
+//         // return res.redirect('back');
+//         if (comment.user == req.user.id){
 //                 let postId = comment.post;
 //                 comment.remove();
-//                 let post = await Post.findByIdAndUpdate(postId , {$pull : {comments : req.params.id}});
-//                 req.flash('success', 'comment deleted!');
-//                 return res.redirect('back');  
+//                 Post.findByIdAndUpdate(postId , {$pull : {comments : req.params.id}}, function(err, post){
+//                     req.flash('success', 'comment deleted!')    
+//                 // return res.redirect('back');
+//                 });
+//                 if (req.xhr){
+//                     return res.status(200).json({
+//                         data:{
+//                             comment_id: req.params.id
+//                         },
+//                         message:'Comment deleted!'
+//                     })
+//                 }
+
+      
+//         }else{
+//              req.flash('error', 'you are not authorized to delete this comment');
+//              return res.redirect('back');
+//          }
+//     });
+// }
+
+
+
+module.exports.destroy = async function(req, res){
+    console.log("inside destroy commments controller");
+
+    try {
+            console.log('comment found')
+            let newComment = await comment.findById(req.params.id);
+            
+            if (newComment.user == req.user.id){
+                    let postId = newComment.post;
+
+                    newComment.remove();
+
+                    let post = Post.findByIdAndUpdate(postId , {$pull : {comments : req.params.id}});
+
+                      // send the comment id which was deleted back to the views
+                    if (req.xhr){
+                        return res.status(200).json({
+                            data: {
+                                comment_id: req.params.id
+                            },
+                            message: "Comment deleted"
+                        });
+                    }
+
+                    req.flash('success', 'comment deleted!');
+
+                    return res.redirect('back');  
         
-//             }else{
-//                 req.flash('error', 'you are not authorized to delete this comment');
-//                 return res.redirect('back');
-//             }
-//     } catch (error) {
-//         req.flash('error', 'error in delteing comment');
-//         return res.redirect('back');
-//     }
-//   }
+            }else{
+                req.flash('error', 'you are not authorized to delete this comment');
+                return res.redirect('back');
+            }
+    }catch(error) {
+        console.log('in catch')
+        console.log(error);
+        req.flash('error','error in deleting comment');
+        return res.redirect('back');
+    }
+  }
 
 

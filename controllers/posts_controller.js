@@ -25,10 +25,14 @@ module.exports.createpost = async function(req,res){
             //    console.log('********',post);
             
 
+            // populating post before returning it in order to fetch name of the user
+             post = await Post.findById(post._id).populate('user');
             // since we're sending the form data using jquery ajax we need to view this form data in posts_controller
             // checking whether req is ajax req or not.. The type of ajax request is XML hTTP Request(xhr)
             if (req.xhr){
                 // ajax request => I need to return some json. we return json with some status(here post is succesfully created so 200)
+                 // adding a flash message for successfull creation of the post
+                 req.flash('success', 'post published!');
                 return res.status(200).json({
                     data:{
                         post: post //this post is the post which is created at line 20.. collecting it in a variable and passing it
@@ -37,8 +41,7 @@ module.exports.createpost = async function(req,res){
                 });  // this json data that we're returning is the one which we're recieving in success handlre function
             }
 
-            // adding a flash message for successfull creation of the post
-            req.flash('success', 'post published!');
+           
             return res.redirect('back');
 
     } catch (error) {

@@ -17,10 +17,23 @@
                     url : '/posts/create',
                     data: newPostForm.serialize(),  // serialize() converts the form data into json(i.e key-value pairs)
                     success: function(resData){  // resDat is already in json format
-                        // console.log(resData); => I've succesfully recieved the form data so now I just need to display it
+                        console.log(resData);// => I've succesfully recieved the form data so now I just need to display it
+                       
                         let newPost = newPostDom(resData.data.post);
+                       
                         $('#posts-list-container > ul').prepend(newPost);  // prepend means putting it at the first position.. so now the post will be added at the top
+                        
                         deletePost($(' .delete-post-button', newPost));
+
+                        new Noty({
+                            theme: 'relax',
+                            text: "Post published!",
+                            type: 'success',
+                            layout: 'topRight',
+                            timeout: 1500
+                            
+                        }).show();
+
                     }, error: function(error){
                         console.log(error.responseText);
                     }
@@ -82,6 +95,16 @@
                 url: $(deletelink).prop('href'),
                 success: function(resData){
                     $(`#post-${resData.data.post_id}`).remove();
+
+                    new Noty({
+                        theme: 'relax',
+                        text: "Post deleted!",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
+
                 },
                 error: function(error){
                     console.log(error.responseText);
