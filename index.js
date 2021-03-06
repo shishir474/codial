@@ -49,6 +49,9 @@ app.use(sassMiddleware({
 // look for the static files in the assets folder
 app.use(express.static('./assets'));
 
+// linking codial->uploads folder with my index.js/centralized file so that it is accessible using express.static(), __dirname returns the pathe of the current directory
+app.use('/uploads', express.static(__dirname + '/uploads')); // make the uplaod`s path availbale to the browser
+
 // inserts the form data in req.body as key-value pairs where key is the name of the input and value is the value given as an input by the user
 app.use(express.urlencoded());
 

@@ -1,6 +1,9 @@
 // Since I'm using my collection User here I need to import it
 const passport = require('passport');
 const User = require('../models/User');
+// importing this 2 modules to delete user avatar if it exixts on uploading a new avatar 
+const fs = require('fs');
+const path = require('path');
 
 module.exports.profile = function(req,res){
     // res.end('<h1>Rendered users profile succesfully</h1>')
@@ -95,18 +98,61 @@ module.exports.destroySession = function(req,res){
 }
 
 // action for updating the user
-module.exports.update = function(req,res){
+module.exports.update = async function(req,res){
+    // if (req.user.id == req.params.id){
+    //     // checking the one who is sending the req is the one whose id is the part of the URL. Someone could fiddle with that id (in chrome dev tools) which will cause updation of other's profile
+    //     User.findByIdAndUpdate(req.params.id, req.body, function(err,user){
+    //         // callback would either throw an error or would give us an updated user
+    //         req.flash('success', 'user updated successfully!')
+    //         return res.redirect('back');
+    //     });
+    // }else{
+    //     req.flash('error', 'You are not authorized to update the profile')
+    //     return res.status(401).send('Unauthorized');
+    // }
+
     if (req.user.id == req.params.id){
-        // checking the one who is sending the req is the one whose id is the part of the URL. Someone could fiddle with that id (in chrome dev tools) which will cause updation of other's profile
-        User.findByIdAndUpdate(req.params.id, req.body, function(err,user){
-            // callback would either throw an error or would give us an updated user
-            req.flash('success', 'user updated successfully!')
+
+        try {
+                let user = await User.findById(req.params.id);    // finding user
+
+                // we have saved the users avatar in the directory structure  ... now next step is to display this avatar
+                User.uploadAvatar(req, res, function(err){
+                    if (err){
+                       console.log('****** Multer ERRROR:', err);
+                    }
+                    //console.log(req.file);
+
+                    // As my form is multipart I need a multer function that will help me to read the req.body..Therefore we created uploadedAvatar
+                    user.name = req.body.name;  // I wouldn't have been able to read req.body without this multer thing(uploadAvatar funcyion) bcoz my form is multipart
+                    user.email = req.body.email;
+
+                    // here I need to check whether user has an avatar or not and if there is any file linked to that avatar...bcoz if we have deleted all the avatars then there is  no file to unlink hence fs.unlinkSync() would throw an error. so we need to put 2 checks
+                    if (user.avatar && fs.existsSync(user.avatar)){
+                        fs.unlinkSync(path.join(__dirname,'..',user.avatar));// unlinking/deleting the file from user.avatar using fs.unlinkSync()
+                    }
+
+                    // if req contains a file
+                    if (req.file){
+                        // this is saving the path of the uploaded file into the avatar field in the current user
+                        user.avatar = User.avatarPath + '/' + req.file.filename;
+                    }
+                    user.save();  // but before returning save the user
+                    return res.redirect('back');
+            })
+
+        } catch (error) {
+            req.flash('error', error);
             return res.redirect('back');
-        });
+        }
+        
     }else{
         req.flash('error', 'You are not authorized to update the profile')
         return res.status(401).send('Unauthorized');
     }
+    
+
+
 }
 
 

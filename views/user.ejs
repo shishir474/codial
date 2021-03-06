@@ -16,16 +16,27 @@
 
        <% if (profile_user.id == user.id ){%>
 
+         <!-- 
+        displaying avatar of the user -->
+         <img src="<%= user.avatar %>"  alt="<%= user.name %>" width="100"  >    <br> 
+           <!-- this will not work bcoz we haven't defined the route.. the server is not able to find the image when the browser asks for it -->
+
         <p> <%= profile_user.name %></p> 
         <p> <%= profile_user.email %> </p>
 
+
+        <!-- user matches then show the form. Here we're only providing option for updating name and email,not password -->
         <h2>Update Profile</h2>
-         <!-- user matches then show the form. Here we're only providing option for updating name and email,not password -->
-         <form action="/users/update/<%= profile_user.id%>" method="POST">
-              <input type="text" name="name" value="<%=profile_user.name%>" placeholder="Your Name.." required>
-               <input type="email" name="email" value="<%=profile_user.email %>" placeholder="Your Email.." required>
-           <!-- Here we've initialized name and email with the existing name and email. which is going to be updated -->
-                 <input type="submit" value="Update">
+         
+         <form action="/users/update/<%= profile_user.id%>"  enctype="multipart/form-data"  method="POST">
+                
+                <input type="text" name="name" value="<%=profile_user.name%>" placeholder="Your Name.." required>
+            
+                <input type="email" name="email" value="<%=profile_user.email %>" placeholder="Your Email.." required>
+                  <!-- Here we've initialized name and email with the existing name and email. which is going to be updated -->
+            
+                <input type="file" name="avatar" placeholder="Profile Picture">
+                <input type="submit" value="Update">
         </form>
         
        <%}else{ %>
