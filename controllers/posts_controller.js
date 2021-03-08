@@ -26,7 +26,11 @@ module.exports.createpost = async function(req,res){
             
 
             // populating post before returning it in order to fetch name of the user
-             post = await Post.findById(post._id).populate('user');
+             //post = await Post.findById(post._id).populate('user'); // this is populating the entire fields of the user.. but we dont want to return password
+             post = await post.populate('user', 'name').execPopulate();// this will populate only the name field of the user and not the entire user
+           //  post = await post.populate('user', ['name', 'email']).execPopulate();// this will only populate name and email of the user.. this is how we populate multiple fields.. if we want to populate the entire user user post.poulate('user');
+            // REFER : https://masteringjs.io/tutorials/mongoose/populate 
+
             // since we're sending the form data using jquery ajax we need to view this form data in posts_controller
             // checking whether req is ajax req or not.. The type of ajax request is XML hTTP Request(xhr)
             if (req.xhr){

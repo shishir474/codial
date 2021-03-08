@@ -5,4 +5,4 @@ module.exports.setFlash = function(req,res,next){
      }
     next();
 }
-// 
+// settting  flash messages in res.locals via this middleware

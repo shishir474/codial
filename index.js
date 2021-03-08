@@ -1,4 +1,6 @@
 // NOTE: keep commiting and pushing all your code on gitHub
+ // REFER : https://masteringjs.io/tutorials/mongoose/populate to know more about populate
+ // https://medium.com/@nicknauert/mongooses-model-populate-b844ae6d1ee7
 const express = require('express');
 const port = 8000;
 const app = express();
@@ -29,8 +31,9 @@ const MongoStore = require('connect-mongo')(session);
 // using sass Middleware package to use sass
 const sassMiddleware = require('node-sass-middleware');
 
+// connect-flash used for notifications
 const flash = require('connect-flash');
-const customMware = require('./config/middleware');
+const customMware = require('./config/middleware');  // customware used for setting flash messages in res.locals(so that it can be accessed in templates) from req object
 
 // these are the settings that I need to put for using SASS.I put this just before the server starts bcoz I need these files to be precompiled which are then served to the browser
 // Browser only understands CSS. at compilation these SASS files get converted to CSS files

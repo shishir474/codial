@@ -16,7 +16,7 @@ module.exports.home = async function(req,res){
      try {
             // find all the posts of the user and accessing it in the views(home.ejs) via pohe persons info by populating 
             let posts = await Post.find({})
-            .sort('-createdAt')
+            .sort('-createdAt') // sorting the post i.e latest post comes first
             .populate('user')
             .populate({
               path : 'comments',

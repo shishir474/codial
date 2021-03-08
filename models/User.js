@@ -6,6 +6,7 @@ const multer = require('multer');
 // Returns: <string></string>
 //path.join() method joins all given path segments together in order to construct a path
 const path = require('path');
+// set up the path where the files will be stored
 const AVATAR_PATH = path.join('/uploads/users/avatars'); // AVATAR_PATH specifies where the uploaded file is going to be stored
 
 const userSchema = new mongoose.Schema({

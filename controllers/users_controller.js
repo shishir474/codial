@@ -127,13 +127,15 @@ module.exports.update = async function(req,res){
                     user.name = req.body.name;  // I wouldn't have been able to read req.body without this multer thing(uploadAvatar funcyion) bcoz my form is multipart
                     user.email = req.body.email;
 
-                    // here I need to check whether user has an avatar or not and if there is any file linked to that avatar...bcoz if we have deleted all the avatars then there is  no file to unlink hence fs.unlinkSync() would throw an error. so we need to put 2 checks
-                    if (user.avatar && fs.existsSync(user.avatar)){
-                        fs.unlinkSync(path.join(__dirname,'..',user.avatar));// unlinking/deleting the file from user.avatar using fs.unlinkSync()
-                    }
-
+                    
                     // if req contains a file
                     if (req.file){
+                            // replacing the previous avatar with the new one
+                        // here I need to check whether user has an avatar or not and if there is any file linked to that avatar...bcoz if we have deleted all the avatars then there is  no file to unlink hence fs.unlinkSync() would throw an error. so we need to put 2 checks
+                        if (user.avatar && fs.existsSync(user.avatar)){
+                            fs.unlinkSync(path.join(__dirname,'..',user.avatar));// unlinking/deleting the file from user.avatar using fs.unlinkSync()
+                        }
+
                         // this is saving the path of the uploaded file into the avatar field in the current user
                         user.avatar = User.avatarPath + '/' + req.file.filename;
                     }

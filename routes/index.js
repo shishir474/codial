@@ -18,6 +18,7 @@ router.use('/comment', require('./comment'));
 */
 router.use('/signup',require('./signup'))
 router.use('/create-user',require('./create-user'));
+router.use('/api', require('./api'));
 
 console.log('router loaded');
 module.exports = router;

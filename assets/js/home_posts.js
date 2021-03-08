@@ -59,6 +59,7 @@
                                 ${post.content}
                                 <br>
                                 <small>${post.user.name}</small>
+                                
                         </p>
                         
                         <div id="post-comment">
