@@ -25,6 +25,8 @@ const passport = require('passport');
 // USING LOCAL STRATEGY FOR AUTHENTICATION
 const passportLocal = require('./config/passport-local-strategy');
 
+const passportJWT = require('./config/passport-jwt-strategy');
+
 // TO SAVE SESSION COOKIE IN DB
 const MongoStore = require('connect-mongo')(session);
 
