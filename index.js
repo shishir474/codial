@@ -27,6 +27,9 @@ const passportLocal = require('./config/passport-local-strategy');
 
 const passportJWT = require('./config/passport-jwt-strategy');
 
+const passportGoogle = require('./config/passport-google-oauth2-strategy');
+const crypo = require('crypto');
+
 // TO SAVE SESSION COOKIE IN DB
 const MongoStore = require('connect-mongo')(session);
 

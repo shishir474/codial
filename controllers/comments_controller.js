@@ -1,5 +1,6 @@
 const comment = require('../models/comment');
 const Post = require('../models/post');
+const commentsMailer = require('../mailers/comments_mailer');
 
 module.exports.comment = function(req,res){
     res.end('<h1>10000 people commented on your post</h1>')
@@ -29,7 +30,8 @@ module.exports.createcomment = async function(req,res){
                         //  this wlll automatically place the comment id in the array
                         post.save();
 
-                        newComment = await newComment.populate('user', 'name').execPopulate();
+                        newComment = await newComment.populate('user', 'name email').execPopulate();
+                        commentsMailer.newCommentMail(newComment);
                         if (req.xhr){
                             return res.status(200).json({
                                 data: {
