@@ -3,7 +3,7 @@ const nodemailer = require('../config/nodemailer');
 // This funciton will send an email to the user who created a comment
 exports.newCommentMail = (comment) => {
     console.log('inside newCommment mailer');
-    console.log(comment);   
+   // console.log(comment);   
 
     let htmlString = nodemailer.renderTemplate({comment: comment}, '/comments/new_comments.ejs')
     nodemailer.transporter.sendMail({

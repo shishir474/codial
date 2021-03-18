@@ -26,6 +26,11 @@ router.get('/auth/google/callback', passport.authenticate('google', {failureRedi
 
 router.get('/sign-out',userController.destroySession);
 
+router.get('/forgot', userController.resetPassword); // to render forgot password page
 
+// to handle form of forgot password. user will send email on which he wants to recieve reset password link
+router.post('/reset-password', userController.reset)
+router.get('/reset/:token', userController.resetPasswordMailToken);
+router.post('/changepassword/:token', userController.changePassword);
 
 module.exports = router;

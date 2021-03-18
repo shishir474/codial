@@ -1,0 +1,14 @@
+<html>
+    <head></head>
+    <body>
+        <h2>Reset Password</h2>
+
+        <form action="/users/changepassword/<%= user.resetPasswordToken %>" method="POST">
+            <label for="newPassword"><strong>New Password</strong></label><br>
+            <input type="password" required placeholder="New Password" name="newPassword" id="newPassword"> <br><br>
+            <label for="confirmPassword"><strong>Confirm Password</strong></label><br>
+            <input type="password" required placeholder="Confirm Password" name="confirmPassword" id="confirmPassword"><br><br>
+            <input type="submit" value="Update Password">
+        </form>
+    </body>
+</html>

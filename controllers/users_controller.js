@@ -4,6 +4,8 @@ const User = require('../models/User');
 // importing this 2 modules to delete user avatar if it exixts on uploading a new avatar 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+const passwordMailer = require('../mailers/password_reset_req_mailer');
 
 module.exports.profile = function(req,res){
     // res.end('<h1>Rendered users profile succesfully</h1>')
@@ -21,6 +23,84 @@ module.exports.profile = function(req,res){
 
     
 } 
+
+module.exports.resetPassword = function(req,res){
+    return res.render('forgot',{
+        user: req.user
+    })
+}
+
+module.exports.reset = function(req,res){
+    // handles reset password form-data
+
+    var token = crypto.randomBytes(20).toString('hex');
+    console.log(token);
+    User.findOne({email: req.body.email}, function(err, user){
+        if (err){
+            console.log('error in finding user for reset password', err);
+            return;
+        }
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = Date.now() + 3600000;
+        user.save();
+        passwordMailer.newPasswordMail(user);
+
+        return res.render('checkMail',{
+            user:user
+        })
+    })
+
+   
+}
+
+module.exports.resetPasswordMailToken = function(req,res){
+    User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user){
+        if (err){
+            console.log('Error in finding user for reset password', err);
+            return; 
+        }
+
+        if (!user) {
+            console.log('error', 'Password reset token is invalid or has expired.');
+            return res.redirect('/forgot');
+          }
+          console.log(user);
+          console.log('reset Password user')
+          return res.render('reset',{
+              user: user
+          })
+
+    })
+}
+
+module.exports.changePassword = function(req, res){
+
+    if (req.body.newPassword != req.body.confirmPassword){
+        console.log('new password does not match with confirm password')
+        return res.redirect('back');
+    }
+
+    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user){
+        if (err){
+            console.log('Error in finding user for reset password', err);
+            return; 
+        }
+
+        if (!user) {
+            console.log('error', 'Password reset token is invalid or has expired.');
+            return res.redirect('back');
+          }
+
+          user.password = req.body.newPassword;
+          user.resetPasswordToken = undefined;
+          user.resetPasswordExpires = undefined;
+          user.save();
+          passwordMailer.changePassword(user);
+
+          return res.redirect('/users/sign-in');
+    })
+}
+
 //Now i've exported my contoller function nd now I need to import it in router file(users.js)
 
 module.exports.userList = function(req,res){

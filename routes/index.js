@@ -16,9 +16,12 @@ router.use('/comment', require('./comment'));
 /* for any other routes access from here
  router.use('/routerName',require('./routerfile'));
 */
+
 router.use('/signup',require('./signup'))
 router.use('/create-user',require('./create-user'));
 router.use('/api', require('./api'));
+
+router.use('/likes', require('./likes'));
 
 console.log('router loaded');
 module.exports = router;

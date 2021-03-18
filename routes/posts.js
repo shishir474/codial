@@ -16,3 +16,4 @@ router.post('/create',passport.checkAuthentication, postsController.createpost);
 // The user should be logged in(Thats why we wrote passport.checkAuthentication). NOt everyone can delete it
 router.get('/destroy/:id', passport.checkAuthentication, postsController.destroy);
 module.exports = router;
+

@@ -25,8 +25,15 @@ const userSchema = new mongoose.Schema({
     },
     avatar:{  // this field is storing the file location (in string) where my file is stored. DB doesnot store the file it justs stores the file path..for that we defined a field avatar
         type: String
+    },
+    resetPasswordToken:{
+        type: String
+    },
+    resetPasswordExpires:{
+        type: Date
     }
-    
+  
+  
 },{
     timestamps: true // timestamps allows us to store info regarding created-at and last-modified-at of the object
 });
