@@ -19,11 +19,16 @@ module.exports.home = async function(req,res){
             .sort('-createdAt') // sorting the post i.e latest post comes first
             .populate('user')
             .populate({
-              path : 'comments',
-              populate : {
-              path:'user'
-            }
-          });
+                path : 'comments',
+                populate : {
+                path:'user'
+              },
+              populate: {
+                path: 'likes'
+              }
+            }).populate('likes');
+            
+            
        // fetch all users and pass its refernce to home.ejs. Since we're using User model we need to import it
           const users = await User.find({});
         //   success

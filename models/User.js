@@ -31,7 +31,13 @@ const userSchema = new mongoose.Schema({
     },
     resetPasswordExpires:{
         type: Date
-    }
+    },
+    friends: [
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Friendship'
+        }
+    ]
   
   
 },{

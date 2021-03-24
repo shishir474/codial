@@ -43,15 +43,20 @@ module.exports.toggleLike = async function(req, res){
 
              likeable.likes.push(newLike._id);
              likeable.save();
-             
+
         }
 
-        return res.json(200,{
-             message: 'request succesfull',
-             data: {
-                 deleted: deleted
-             }
-        });
+
+        if (req.xhr){
+            req.flash('success', 'Post liked');
+            return res.json(200,{
+                message: 'request succesfull',
+                data: {
+                    deleted: deleted
+                }
+           });
+        }
+        return res.redirect('back');      
 
 
     } catch (error) {

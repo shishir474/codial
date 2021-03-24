@@ -13,7 +13,15 @@
     
         <%= post.content%>
         <br>
-        <small><%= post.user.name %></small>
+        <small><%= post.user.name %></small><br>
+       
+        <%  if (locals.user){ %>
+            <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=post" id="likebtn"><%= post.likes.length %> Likes</a>
+          
+       <% }else{ %>
+            <small> <%= post.likes.length %> Likes</small>
+        <% } %>
+       
      </p>
     
          <!-- comment form -->

@@ -40,6 +40,12 @@ const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');  // customware used for setting flash messages in res.locals(so that it can be accessed in templates) from req object
 
+// set up the chat server to be used with socket.io
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('chat server is running on port 5000');
+
 // these are the settings that I need to put for using SASS.I put this just before the server starts bcoz I need these files to be precompiled which are then served to the browser
 // Browser only understands CSS. at compilation these SASS files get converted to CSS files
 app.use(sassMiddleware({

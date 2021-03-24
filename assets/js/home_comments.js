@@ -18,6 +18,9 @@
                      console.log(newComment);
                      deleteCommentDom($(' .delete-comment-button', newComment))
                      console.log('comment creation success handler')
+
+                     // CHANGE :: enable the functionality of the toggle like button on the new post
+                     new ToggleLike($(' .toggle-like-button', newComment));
                      
 
                      new Noty({
@@ -48,6 +51,12 @@
                         <br>
                         <small>
                             ${ comment.user.name}
+                        </small><br>
+
+                        <small>
+                            <a class="toggle-like-button" data-likes="0"  href= "/likes/toggle/?id=${comment._id}&type=comment" id="likebtn"> 
+                                0 Likes
+                            </a>
                         </small>
                 </div> `)
     }

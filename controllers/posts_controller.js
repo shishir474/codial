@@ -2,6 +2,7 @@ const { comment } = require("./comments_controller");
 
 const Post = require('../models/post');
 const Comment = require('../models/comment');
+const Like = require('../models/like');
 
 module.exports.postRender = function(req,res){
     res.end('<h1>rendering your Posts..wait for a moment please!!</h1>')
@@ -71,12 +72,16 @@ module.exports.destroy = async function(req,res){
         // Ideally we should be using req.user._id but we're using .id.
         // .id means converting the object id into string
         if (post.user == req.user.id){
+                
+                await Like.deleteMany({likeable: post._id, onModel: 'post'});
+                await Like.deleteMany({_id: {$in: post.comments}});
                 //removepost
                 post.remove();
 
                 // deleting comments. For this I need to import comment model
                 // deleteMany function deletes all the comments based on some queries passed
                 await Comment.deleteMany({post:req.params.id});
+              
                 
                 if (req.xhr){
                     return res.status(200).json({
