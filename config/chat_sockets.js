@@ -13,7 +13,13 @@ module.exports.chatSockets = function(socketServer){
          console.log('joining req received', data);
          socket.join(data.chatroom);
 
-         io.in(data.chatroom).emit('user_joined', data)
+         io.in(data.chatroom).emit('user_joined', data);
+
+         // detect send message and broadcast it to everyone in the room
+         socket.on('send_message', function(data){
+             console.log('message received at server side broadcasting it to other subscribers', data.message);
+             io.in(data.chatroom).emit('receive_message', data);
+         })
      })
  });
 }
