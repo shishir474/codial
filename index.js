@@ -4,6 +4,8 @@
 const express = require('express');
 const port = 8000;
 const app = express();
+const env = require('./config/environment');
+const logger  = require('morgan');
 
 // USING LAYOUTS TO RENDER VIEWS
 const expressLayouts = require('express-ejs-layouts');
@@ -45,26 +47,31 @@ const chatServer = require('http').Server(app);
 const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
 chatServer.listen(5000);
 console.log('chat server is running on port 5000');
+const path = require('path');
 
 // these are the settings that I need to put for using SASS.I put this just before the server starts bcoz I need these files to be precompiled which are then served to the browser
 // Browser only understands CSS. at compilation these SASS files get converted to CSS files
-app.use(sassMiddleware({
-   src: './assets/scss',
-   dest: './assets/css',
-   debug: true, // do I need to display errors that are in the files during compilation.Yes obviously so Set to true. SEt to false if in production mode
-   outputStyle: 'extended', // do I want everything to be in a single line.NO obviously. We want it to e in multiple lines so extended
-   prefix: '/css' // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
-   //  prefix specifies where my server should look out for CSS files.. In /css folder
-}));
-
-
+if (env.name == 'development'){
+   
+    app.use(sassMiddleware({
+        src: path.join(__dirname, env.asset_path, 'scss') ,  // './assets/scss' path.join(__dirname, env.asset_path, 'scss')
+        dest: path.join(__dirname, env.asset_path, 'css') ,// './assets/css' path.join(__dirname, env.asset_path, 'css')
+        debug: true, // do I need to display errors that are in the files during compilation.Yes obviously so Set to true. SEt to false if in production mode
+        outputStyle: 'extended', // do I want everything to be in a single line.NO obviously. We want it to e in multiple lines so extended
+        prefix: '/css' // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+        //  prefix specifies where my server should look out for CSS files.. In /css folder
+     }));
+     
+}
 
 
 // look for the static files in the assets folder
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 
 // linking codial->uploads folder with my index.js/centralized file so that it is accessible using express.static(), __dirname returns the pathe of the current directory
 app.use('/uploads', express.static(__dirname + '/uploads')); // make the uplaod`s path availbale to the browser
+
+app.use(logger(env.morgan.mode, env.morgan.options));
 
 // inserts the form data in req.body as key-value pairs where key is the name of the input and value is the value given as an input by the user
 app.use(express.urlencoded());
@@ -86,7 +93,7 @@ app.set('views', './views');
 // This middleware encrypts the session cookie
 app.use(session({
     name: 'codial',
-    secret: 'blahsomething',
+    secret: env.session_cookie_key,
     saveUninitialized: false, // don't create session until something stored
     resave: false, //don't save session if unmodified
     cookie:{

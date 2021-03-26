@@ -3,13 +3,14 @@ const passport = require('passport');
 const JWTStrategy = require('passport-jwt').Strategy;
 // importing module which will extract JWT from the header
 const ExtractJWT = require('passport-jwt').ExtractJwt;
+const env = require('./environment');
 
 const User = require('../models/User');
 
 var opts = {
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),  
     // header is a list of keys. It has a key called authorization which is again a list of keys. authorization has a key called bearer which will have the JWT token
-    secretOrKey: 'codial'
+    secretOrKey: env.jwt_secret
        // encryption/decryption takes place on the basis of this key(If I change this after genrating token I willn't be able to decrypt that). Later on we willl generate a random hash code  which will be more complicated
 }
  

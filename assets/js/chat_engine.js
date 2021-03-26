@@ -3,17 +3,18 @@
 // this class is going to send the req for connection.. Also I need to initialize my class(in home.ejs)
 class ChatEngine{
     constructor(chatBoxId, userEmail){
-        this.chatBox = chatBoxId;
+        this.chatBox = $(`#${chatBoxId}`)
         this.userEmail = userEmail;
 
-        
+        // initiating the connection with chat server.. go and connect with the server
         this.socket = io.connect('http://localhost:5000', {transports: ['websocket'], rejectUnauthorized: false })
 
         if (this.userEmail){
             this.connetionHandler();
         }
     }
-
+    
+    // this connectionHandler will handle the to- interaction between the observer and subscriber. on means detecting an event
     connetionHandler(){
         let self = this;
 
