@@ -1,12 +1,33 @@
-footer{
-    display: flex;
-    align-content: flex-start;
-   padding: 5px;
-   background-color: grey;
-   color: white;
-   div a{
-       text-decoration: none;
-       color:white;
+// footer{
+//     display: flex;
+//     align-content: flex-start;
+//    padding: 5px;
+//    background-color: grey;
+//    color: white;
+//    div a{
+//        text-decoration: none;
+//        color:white;
        
-   }
+//    }
+// }
+
+
+
+#layout-footer{
+    color: white;
+    a{
+        color: white;
+        text-decoration: none;
+    }
+
+    background: grey;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: flex-start;
+
+    .footer-nav{
+        ul{
+            list-style: none;
+        }
+    }
 }

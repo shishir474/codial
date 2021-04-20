@@ -1,6 +1,6 @@
 const fs = require('fs') // since we will be writing in the file system(logging in production) we need to import fs module
 const rfs = require('rotating-file-stream');
-const path = require('path'); 
+const path = require('path');
 
 // logDirectory defines where the logs will be stored 
 const logDirectory = path.join(__dirname,'../production_logs');
@@ -13,9 +13,9 @@ const accessLogStream = rfs.createStream('access.log', {
 
 const development = {
     name: 'development',
-    asset_path: './assets',
+    asset_path: '/assets',
     session_cookie_key: 'blahsomething',
-    db: 'codial_production',
+    db: 'codial_development',
     smtp: {
         service: 'gmail',
         host: 'smtp.gmail.com',
@@ -28,7 +28,7 @@ const development = {
     },
     google_client_ID: "861868532152-k45bt075p0okbe713n8i5u4g5v7r6i8h.apps.googleusercontent.com",
     google_client_Secret: "c10DQgHOYtUVWJZpt8i7F9KD",
-    google_callbackURL: "http://codial.com/users/auth/google/callback",
+    google_callbackURL: "http://localhost:8000/users/auth/google/callback",
     jwt_secret: 'codial',
     morgan:{
         mode: 'dev',
@@ -41,7 +41,7 @@ const development = {
 // In order to run code in production environment we need to add a script(prod_start) in package.json.. and then run app via npm run prod_start command
 const production = {
     name: 'production',
-    asset_path: process.env.CODEIAL_ASSET_PATH,
+    asset_path: process.env.CODIAL_ASSET_PATH,
     session_cookie_key: process.env.CODIAL_SESSION_COOKIE_KEY,
     db: process.env.CODIAL_DB,
     smtp: {
@@ -64,5 +64,5 @@ const production = {
     }
 }
 
-// module.exports = development;
-module.exports = eval(process.env.CODIAL_ENVIRONMENT)==undefined ? development : eval(process.env.CODIAL_ENVIRONMENT);
+  // module.exports = development;
+  module.exports = eval(process.env.CODIAL_ENVIRONMENT)==undefined ? development : eval(process.env.CODIAL_ENVIRONMENT);

@@ -1,21 +1,35 @@
-#header{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    background-color: blue;
-    color: white;
-    justify-content: space-between;
-
-    div{
-        font-size: 35px;
-        margin-left:5px;
-        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-    }
-    #auth-links a{
-        font-size: 25px;
+#layout-header{
+    nav{
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px;
+        background: #2196f3;
         color: white;
-        text-decoration: none;
-        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-         margin-right: 5px;
+        box-shadow: 1px 1px 1px 1px lightgrey;
+
+        .mini-logo{
+            p{
+                margin: 5px;
+                font-size: 1.4rem;
+                font-weight: bold;
+            }
+        }
+
+        .auth-links{
+            ul{
+                margin: 5% 5px;
+                display: flex;
+                list-style: none;
+                li{
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        a{
+            color: white;
+            text-decoration: none;
+        }
+
     }
 }

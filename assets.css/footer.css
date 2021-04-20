@@ -1,1 +1,1 @@
-footer{display:flex;align-content:flex-start;padding:5px;background-color:grey;color:#fff}footer div a{text-decoration:none;color:#fff}
+#layout-footer{color:#fff;background:grey;padding:5px 10px;display:flex;justify-content:flex-start}#layout-footer a{color:#fff;text-decoration:none}#layout-footer .footer-nav ul{list-style:none}

@@ -14,7 +14,7 @@ module.exports.profile = function(req,res){
      User.findById(req.params.id, function(err,user){
         
         return res.render('user',{
-            title:'user profile',
+            title: 'User Profile',
             number:'10,000',
             profile_user:user
         });
@@ -115,7 +115,7 @@ module.exports.signUp = function(req,res){
     }
 
     return res.render('user_sign_up',{
-        title: 'codial|signUp'
+        title: "Codeial | Sign Up"
     })
 }
 
@@ -128,7 +128,7 @@ module.exports.signIn = function(req,res){
     }
 
     return res.render('user_sign_in',{
-        title: 'codial|signIn'
+        title: "Codeial | Sign In"
     })
 }
 
@@ -137,7 +137,7 @@ module.exports.create = async function(req,res){
     try {
             // if password and confirm_password aren't same then return back
             if (req.body.password != req.body.confirm_password){
-                req.flash('error', 'password and confirm password does not match');
+                req.flash('error', 'Passwords do not match');
                 return res.redirect('back');
             }
 
@@ -153,7 +153,7 @@ module.exports.create = async function(req,res){
                     return res.redirect('/users/sign-in');
             }else{
                 // user exists
-                req.flash('success', 'user already exists');
+                req.flash('success', 'You have signed up, login to continue!');
                 return res.redirect('back')
                 // In both cases when password doesn't match with confirm password and user already exists we're redirecting back.
             }
@@ -174,6 +174,7 @@ module.exports.createSession = function(req,res){
 module.exports.destroySession = function(req,res){
     req.logout();
     req.flash('success', 'You have Logged out!');
+    
     return res.redirect('/');
 }
 
@@ -199,7 +200,7 @@ module.exports.update = async function(req,res){
                 // we have saved the users avatar in the directory structure  ... now next step is to display this avatar
                 User.uploadAvatar(req, res, function(err){
                     if (err){
-                       console.log('****** Multer ERRROR:', err);
+                       console.log('****** Multer ERROR:', err);
                     }
                     //console.log(req.file);
 
@@ -229,7 +230,7 @@ module.exports.update = async function(req,res){
         }
         
     }else{
-        req.flash('error', 'You are not authorized to update the profile')
+        req.flash('error', 'Unauthorized!')
         return res.status(401).send('Unauthorized');
     }
     

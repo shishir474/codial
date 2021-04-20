@@ -23,14 +23,15 @@ module.exports.toggleLike = async function(req, res){
             user: req.user._id
 
         });
+     
 
         if (existingLike){
              // like already exists.. so delete the like from the array and and from likes collection
              likeable.likes.pull(existingLike._id);
              likeable.save();
-             deleted = true;
-
+            
              existingLike.remove();
+             deleted = true;
             // Like.remove(existingLike);
 
         }else{
@@ -47,7 +48,7 @@ module.exports.toggleLike = async function(req, res){
         }
 
 
-        if (req.xhr){
+        
             req.flash('success', 'Post liked');
             return res.json(200,{
                 message: 'request succesfull',
@@ -55,8 +56,8 @@ module.exports.toggleLike = async function(req, res){
                     deleted: deleted
                 }
            });
-        }
-        return res.redirect('back');      
+        
+            
 
 
     } catch (error) {

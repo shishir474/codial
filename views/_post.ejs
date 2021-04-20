@@ -7,48 +7,53 @@
             <!-- Delete option should be visible only if the user is signed in(i.e locals.user) and the user signed in(locals.user.id) is same as the user who has created the post(post.user.id) -->
             <small>
                 <a href="/posts/destroy/<%= post.id %>" class="delete-post-button ">X</a>
-            </small>
+            </small> 
       <% } %>  
     
     
         <%= post.content%>
         <br>
         <small><%= post.user.name %></small><br>
-       
-        <%  if (locals.user){ %>
-            <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=post" id="likebtn"><%= post.likes.length %> Likes</a>
-          
-       <% }else{ %>
-            <small> <%= post.likes.length %> Likes</small>
-        <% } %>
-       
+         
+        <!-- CHANGE :: display the likes of this post, if the user is logged in, then show the link to toggle likes, else, just show the count -->
+        <small>
+            <% if (locals.user){ %>
+                <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=post">
+                        <%= post.likes.length %> Likes
+                </a>
+            <% }else{ %>
+                <%= post.likes.length %> Likes
+            <% } %>
+        </small>
+
      </p>
     
-         <!-- comment form -->
-         <div id="post-comment">
-          <%  if (locals.user){ %>
-              <form action="/comment/create" id="new-comment-form" method="POST">
-                  <input type="text" name="content" placeholder="Type Here to add comment...">
-                  <!-- sending id of the post to which the comment belongs to in a hidden manner -->
-                  <input type="hidden" name="post" value="<%= post._id%>">
-                  <input type="submit" value="Add comment">
-              </form>
-              <% } %>  
-    
-    <!-- 
-              displaying comments and author name
-              prepopulated the comments and user -->
-              <div id="post-comments-list">
-                  <ul id="post-comments-<%= post._id %>">
-                      <% for (comment of post.comments) { %>
-                          <p>
-                              <%- include('_comment') -%>
-                          </p>
-                      <% } %>
-                  </ul>
-              </div>
-    
-         </div>
+    <!-- comment form -->
+    <div class="post-comments">
+    <%  if (locals.user){ %>
+        <!-- let's give an id to the new comment form, we'll also need to make the same changes in home_posts.js where we're adding a post to the page -->
+        <form action="/comment/create" id="post-<%= post._id %>-comments-form" method="POST">
+            <input type="text" name="content" placeholder="Type Here to add comment..." required>
+            <!-- sending id of the post to which the comment belongs to in a hidden manner -->
+            <input type="hidden" name="post" value="<%= post._id%>">
+            <input type="submit" value="Add comment">
+        </form>
+        <% } %>  
+
+<!-- 
+        displaying comments and author name
+        prepopulated the comments and user -->
+        <div class="post-comments-list">
+            <ul id="post-comments-<%= post._id %>">
+                <% for (comment of post.comments) { %>
+                    <p>
+                        <%- include('_comment') -%>
+                    </p>
+                <% } %>
+            </ul>
+        </div>
+
+    </div>
     
     
 </li> 

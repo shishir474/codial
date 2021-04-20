@@ -1,4 +1,4 @@
-<footer>
+<!-- <footer>
     <div>
         @Coding Ninjas. All rights reserved&nbsp; &nbsp;&nbsp;
     </div>
@@ -9,4 +9,30 @@
         <% } %>
     </div>
     
+</footer> -->
+
+
+
+<!-- solution code -->
+<footer id="layout-footer">
+    <div>
+        <p>
+            &#169; Coding Ninjas. All Rights Reserved
+        </p>
+    </div>
+
+    <div>
+        <nav class="footer-nav">
+            <% if (locals.user) { %>
+            <ul>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/users/profile/<%= user.id %>">Profile</a>
+                </li>
+            </ul>
+            <% } %>
+        </nav>
+    </div>
 </footer>

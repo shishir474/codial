@@ -33,7 +33,7 @@ gulp.task('css', function(done){
                                             // create a manifest(passing the currrent working directory) that will basically map a file name to its updated/new file name
                                             // and then again store the files in public/assets                                            
      // renaming any folder or subfolder inside assets which contains a css file
-      gulp.src('./assets/**/*.css')
+     gulp.src('./assets/**/*.css')
      .pipe(rev())
      .pipe(gulp.dest('./public/assets'))
      .pipe(rev.manifest({

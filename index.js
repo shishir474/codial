@@ -4,9 +4,10 @@
 const express = require('express');
 const port = 8000;
 const app = express();
-require('./config/view-helpers')(app);
+
 const env = require('./config/environment');
 const logger  = require('morgan');
+require('./config/view-helpers')(app);
 
 // USING LAYOUTS TO RENDER VIEWS
 const expressLayouts = require('express-ejs-layouts');
@@ -67,7 +68,7 @@ if (env.name == 'development'){
 
 
 // look for the static files in the assets folder
-app.use(express.static(env.asset_path));
+ app.use(express.static(__dirname+env.asset_path));
 
 // linking codial->uploads folder with my index.js/centralized file so that it is accessible using express.static(), __dirname returns the pathe of the current directory
 app.use('/uploads', express.static(__dirname + '/uploads')); // make the uplaod`s path availbale to the browser
@@ -133,5 +134,3 @@ app.listen(port,function(err){
     console.log(`server is running on port: ${port}`);
 })
 
-
-// 

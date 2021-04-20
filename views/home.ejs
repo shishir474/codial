@@ -11,6 +11,13 @@
 </html> -->
 
 
+
+  <!--@LINE 22:  since we're loading this page according to a layout we're removing this line <- include('_header') %>   -->
+<!-- header and footer are already included in layout so thereby removing it -->
+<!-- <h1>Codial/home page</h1> -->
+
+
+
 <!-- Understanding Partials -->
 <html>
     <head>
@@ -18,11 +25,6 @@
         <link rel="stylesheet" href="<%= assetPath('css/home.css') %>">
     </head>
     <body>
-        
-        <!--  since we're loading this page according to a layout we're removing this line <- include('_header') %>   -->
-        <!-- header and footer are already included in layout so thereby removing it -->
-        <!-- <h1>Codial/home page</h1> -->
- 
         <div id="home-container">
             <section id="feed-posts">
                 <h4>Posts</h4>
@@ -42,8 +44,6 @@
                         <% } %>
                     </ul> 
                 </div>
-                
-  
           </section>
   
           <!-- Displaying all the users on home page only if the user is logged in. For this I need to fetch all the users. SO go to homeController and pass reference of all users -->

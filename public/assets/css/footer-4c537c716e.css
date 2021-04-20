@@ -1,9 +1,0 @@
-footer {
-  display: flex;
-  align-content: flex-start;
-  padding: 5px;
-  background-color: grey;
-  color: white; }
-  footer div a {
-    text-decoration: none;
-    color: white; }

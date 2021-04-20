@@ -57,7 +57,7 @@ module.exports.createcomment = async function(req,res){
                             });1
                         }
                         
-                        req.flash('success', 'comment posted successfully!');
+                        req.flash('success', 'Comment Published!');
                         //console.log('********',newComment);
                         res.redirect('/');
                   }
@@ -119,7 +119,7 @@ module.exports.destroy = async function(req, res){
 
                     let post = Post.findByIdAndUpdate(postId , {$pull : {comments : req.params.id}});
 
-                    // deleteing likes associated with that comment
+                    // destroy the associated likes for this comment
                     await Like.deleteMany({likeable: newComment._id, onModel: 'comment'})
 
                       // send the comment id which was deleted back to the views
@@ -132,19 +132,19 @@ module.exports.destroy = async function(req, res){
                         });
                     }
 
-                    req.flash('success', 'comment deleted!');
+                    req.flash('success', 'Comment deleted!');
 
                     return res.redirect('back');  
         
             }else{
-                req.flash('error', 'you are not authorized to delete this comment');
+                req.flash('error', 'Unauthorized');
                 return res.redirect('back');
             }
     }catch(error) {
         console.log('in catch')
         console.log(error);
         req.flash('error','error in deleting comment');
-        return res.redirect('back');
+        return;
     }
   }
 

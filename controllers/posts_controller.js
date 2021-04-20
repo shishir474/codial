@@ -28,7 +28,7 @@ module.exports.createpost = async function(req,res){
 
             // populating post before returning it in order to fetch name of the user
              //post = await Post.findById(post._id).populate('user'); // this is populating the entire fields of the user.. but we dont want to return password
-             post = await post.populate('user', 'name').execPopulate();// this will populate only the name field of the user and not the entire user
+
            //  post = await post.populate('user', ['name', 'email']).execPopulate();// this will only populate name and email of the user.. this is how we populate multiple fields.. if we want to populate the entire user user post.poulate('user');
             // REFER : https://masteringjs.io/tutorials/mongoose/populate 
 
@@ -36,8 +36,8 @@ module.exports.createpost = async function(req,res){
             // checking whether req is ajax req or not.. The type of ajax request is XML hTTP Request(xhr)
             if (req.xhr){
                 // ajax request => I need to return some json. we return json with some status(here post is succesfully created so 200)
-                 // adding a flash message for successfull creation of the post
-                 req.flash('success', 'post published!');
+               
+                 post = await post.populate('user', 'name').execPopulate();             // this will populate only the name field of the user and not the entire user
                 return res.status(200).json({
                     data:{
                         post: post //this post is the post which is created at line 20.. collecting it in a variable and passing it
@@ -46,12 +46,14 @@ module.exports.createpost = async function(req,res){
                 });  // this json data that we're returning is the one which we're recieving in success handlre function
             }
 
-           
-            return res.redirect('back');
+             // adding a flash message for successfull creation of the post
+             req.flash('success', 'post published!');
+             return res.redirect('back');
 
     } catch (error) {
         //console.log('Error',error);
         req.flash('error', error);
+        console.log(err);
         return res.redirect('back');
     }
     

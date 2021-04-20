@@ -25,8 +25,8 @@
                         
                         deletePost($(' .delete-post-button', newPost));
 
-                            // call the create comment class
-                         new PostComments(data.data.post._id);
+                        // call the create comment class
+                        new PostComments(data.data.post._id);
 
                         // CHANGE :: enable the functionality of the toggle like button on the new post
                         new ToggleLike($(' .toggle-like-button', newPost));
@@ -74,10 +74,10 @@
                                 
                         </p>
                         
-                        <div id="post-comment">
+                        <div class="post-comments">
                         
                      
-                                <form action="/comment/create" id="new-comment-form" method="POST">
+                                <form action="/comment/create" id="post-${ post._id }-comments-form" method="POST">
                                     <input type="text" name="content" placeholder="Type Here to add comment...">
                                     <!-- sending id of the post to which the comment belongs to in a hidden manner -->
                                     <input type="hidden" name="post" value="${post._id}">
@@ -85,7 +85,7 @@
                                 </form>
                             
                         
-                                <div id="post-comments-list">
+                                <div class="post-comments-list">
                                     <ul id="post-comments-${post._id}">
                                                       
                                     </ul>
@@ -111,7 +111,7 @@
 
                     new Noty({
                         theme: 'relax',
-                        text: "Post deleted!",
+                        text: "Post Deleted!",
                         type: 'success',
                         layout: 'topRight',
                         timeout: 1500
@@ -128,7 +128,7 @@
         })
     }
 
-
+    // loop over all the existing posts on the page (when the window loads for the first time) and call the delete post method on delete link of each, also add AJAX (using the class we've created) to the delete button of each
     let convertPostsToAjax = function(){
         $('#posts-list-container>ul>li').each(function(){
             let self = $(this);
