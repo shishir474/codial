@@ -7,3 +7,10 @@
     width: 30%;
     border-left: 4px solid lightgrey;
     padding: 10px; }
+    #home-container #user-friends #friends-name{
+      text-transform: capitalize;
+    }
+    #home-container #user-friends #friends-name a{
+      text-decoration: none;
+    }
+    
