@@ -9,6 +9,12 @@
         width:30%;
         border-left:4px solid lightgrey;
         padding: 10px;
+        #friends-name{
+            text-transform: capitalize;
+            a{
+                text-decoration: none;
+            }
+        }
         
     }
 }

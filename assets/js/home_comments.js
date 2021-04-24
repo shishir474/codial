@@ -140,7 +140,7 @@ class PostComments{
 
             $.ajax({
                 type: 'post',
-                url: '/comments/create',
+                url: '/comment/create',
                 data: $(self).serialize(),
                 success: function(data){
                     let newComment = pSelf.newCommentDom(data.data.comment);
@@ -190,9 +190,7 @@ class PostComments{
                                 </a>
                             
                             </small>
-
                         </p>    
-
                 </li>`);
     }
 

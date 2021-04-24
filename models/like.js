@@ -12,7 +12,7 @@ const likeSchema = new mongoose.Schema({
     onModel: {
         type: String,
         required: true,
-        enum: ['post', 'comment']  // enum specifies value could be only either post or comment
+        enum: ['post', 'Comment']  // enum specifies value could be only either post or comment
     }
 
 },{

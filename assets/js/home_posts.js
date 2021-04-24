@@ -26,7 +26,7 @@
                         deletePost($(' .delete-post-button', newPost));
 
                         // call the create comment class
-                        new PostComments(data.data.post._id);
+                        new PostComments(resData.data.post._id);
 
                         // CHANGE :: enable the functionality of the toggle like button on the new post
                         new ToggleLike($(' .toggle-like-button', newPost));
@@ -62,7 +62,6 @@
                                 <small>
                                     <a href="/posts/destroy/${post._id}" class="delete-post-button">X</a>
                                 </small>
-
                                 ${post.content}
                                 <br>
                                 <small>${post.user.name}</small><br>

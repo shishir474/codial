@@ -3,9 +3,16 @@
   background: grey;
   padding: 5px 10px;
   display: flex;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   justify-content: flex-start; }
   #layout-footer a {
     color: white;
     text-decoration: none; }
   #layout-footer .footer-nav ul {
-    list-style: none; }
+    list-style: none;}
+    #layout-footer .footer-nav ul li{
+      display: inline-block;
+      margin-right: 15px;
+    }

@@ -10,11 +10,9 @@ class ToggleLike{
         $(this.toggler).click(function(e){
             e.preventDefault();
             let self = this;
-            console.log('ajax req made')
-            console.log(self)
             // this is a new way of writing ajax which you might've studied, it looks like the same as promises
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 url: $(self).attr('href'),
             })
             .done(function(data) {
@@ -35,6 +33,7 @@ class ToggleLike{
 
             })
             .fail(function(errData) {
+                console.log(errData);
                 console.log('error in completing the request');
             });
             

@@ -9,12 +9,12 @@ module.exports.toggleLike = async function(req, res){
         
         let likeable;
         let deleted = false;
-       
+        
         if (req.query.type=='post'){
             likeable = await Post.findById(req.query.id).populate('likes');
         }else{
             likeable = await Comment.findById(req.query.id).populate('likes');
-        }
+        } 
 
         //check if like already exists
         let existingLike = await Like.findOne({

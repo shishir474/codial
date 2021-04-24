@@ -17,4 +17,9 @@
       margin-right: 10px; }
   #layout-header nav a {
     color: white;
-    text-decoration: none; }
+    text-decoration: none;
+    text-transform: capitalize;
+  font-size: 1.3rem; }
+
+
+    
