@@ -54,7 +54,7 @@ const production = {
             pass: process.env.CODIAL_GMAIL_PASSWORD
         }
     },
-    google_client_ID: process.env.CODIAL_GOOGLE_ClIENT_ID,
+    google_client_ID: process.env.CODIAL_GOOGLE_CLIENT_ID,
     google_client_Secret: process.env.CODIAL_GOOGLE_CLIENT_SECRET,
     google_callbackURL: process.env.CODIAL_GOOGLE_CALLBACK_URL,
     jwt_secret: process.env.CODIAL_JWT_SECRET,

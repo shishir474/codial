@@ -4,7 +4,7 @@ const User = require('../models/User');
 // importing this 2 modules to delete user avatar if it exixts on uploading a new avatar 
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
+const crypto = require('crypto'); 
 const passwordMailer = require('../mailers/password_reset_req_mailer');
 
 module.exports.profile = function(req,res){
