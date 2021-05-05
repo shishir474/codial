@@ -1,8 +1,9 @@
-<h1>Sign In</h1>
+<link rel="stylesheet" href="<%= assetPath('css/sign-in.css') %>">
+<!-- <h1>Sign In</h1> -->
 
 <!--  whenever a user logs in it creates a session and when he signs out that session gets destroyed  -->
 
-<form action="/users/create-session" method="POST">
+<!-- <form action="/users/create-session" method="POST">
      <input type="email" name="email" placeholder="your email" required>
       <input type="password" name="password" placeholder="your Password" required>
       <input type="submit" value="Sign In">
@@ -14,4 +15,29 @@
 
 <button>
       <a href="/users/forgot">Forgot password?</a>
-</button>
+</button> -->
+
+<div id=signin-div>
+      <form action="/users/create-session" method="POST">
+            <div class="container">
+              <label for="email"><b>Email</b></label>
+              <input type="email" placeholder="Enter Email" name="email" >
+          
+              <label for="password"><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="password" >
+          
+              <button type="submit">Login</button>
+              <label>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+              </label>
+              <button id="google-login">
+                  <a href="/users/auth/google"><i class="fab fa-google" style="margin-right: 0.5rem;">&nbsp&nbspLogin with Google</i></a>
+            </button> 
+            </div>
+          
+            <div class="container" style="background-color:#f1f1f1">
+              
+              <span class="psw">Forgot <a href="/users/forgot">password?</a></span>
+            </div>
+          </form>
+</div>

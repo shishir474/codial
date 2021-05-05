@@ -15,33 +15,36 @@
    <a href="/users/auth/google">Google Sign-In/Sign-Up</a>
 </button>  -->
 
-<form action="/users/create" method="POST" style="border:1px solid #ccc">
-   <div class="container">
-     <h1>Sign Up</h1>
-     <p>Please fill in this form to create an account.</p>
-     <hr>
-
-     <label for="name"><b>Name</b></label>
-     <input type="text" name="name" placeholder="Enter Name" required>
-
-     <label for="email"><b>Email</b></label>
-     <input type="email" placeholder="Enter Email" name="email" required>
- 
-     <label for="password"><b>Password</b></label>
-     <input type="password" placeholder="Enter Password" name="password" required>
- 
-     <label for="confirm_password"><b>Repeat Password</b></label>
-     <input type="password" placeholder="Repeat Password" name="confirm_password" required>
- 
- 
-     <div class="clearfix">
-       <button type="submit" class="signupbtn">Sign Up</button>
-       <button id="google-signup" type="button">
-         <a href="/users/auth/google"><i class="fab fa-google" style="margin-right: 0.5rem;">&nbsp&nbspSign-Up with Google</i></a>
-      </button>
-     </div>
-   </div>
-
- </form>
-
- 
+<div id="signup-div">
+   <form action="/users/create" method="POST" style="border:1px solid #ccc" id="form">
+      <div class="container">
+        <h1>Sign Up</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+   
+        <label for="name"><b>Name</b></label>
+        <input type="text" name="name" placeholder="Enter Name" required>
+   
+        <label for="email"><b>Email</b></label>
+        <input type="email" placeholder="Enter Email" name="email" required>
+    
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+    
+        <label for="confirm_password"><b>Repeat Password</b></label>
+        <input type="password" placeholder="Repeat Password" name="confirm_password" required>
+    
+    
+        <div class="clearfix">
+          <button type="submit" class="signupbtn">Sign Up</button>
+          <button id="google-login" type="button">
+            <a href="/users/auth/google"><i class="fab fa-google" style="margin-right: 0.5rem;">&nbsp&nbspSign-Up with Google</i></a>
+         </button>
+        </div>
+      </div>
+   
+    </form>
+   
+    
+   
+</div>
