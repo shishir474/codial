@@ -1,38 +1,82 @@
 body{
-  form {
-    border: 3px solid #f1f1f1;
+  #signin-div{
+    width: 40%;
+   margin-left: 5%;
+   margin-top: 2%;
+   display: inline-block;
   }
-  input[type=email], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+  #btn-div{
     display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    position: relative;
+    left: 18%;
+    top: -38%;
+    border-radius: 20%;
   }
-  button {
-    background-color: #04AA6D;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
+  #partition{
+    height: 75vh;
+    margin-top: 2rem;
+    width: 2px;
+    border: 1px dotted black;
+    display: inline-block;
+    position: relative;
+    left: 10%;
   }
-  button:hover {
-    opacity: 0.8;
-  }
-  .container {
-    padding: 16px;
-  }
-  span.psw {
-    float: right;
-    padding-top: 16px;
-  }
-  @media screen and (max-width: 300px) {
-    span.psw {
-      display: block;
-      float: none;
+  form {
+      border: 3px solid #f1f1f1;
+      position: relative;
+      top: -1rem;
+      
     }
-  }
+    input[type=email], input[type=password] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #04AA6D;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      
+    }
+    button:hover {
+      opacity: 0.8;
+    }
+    .imgcontainer {
+      text-align: center;
+      margin: 24px 0 12px 0;
+    }
+    img.avatar {
+      width: 40%;
+      border-radius: 50%;
+    }
+    .container {
+      padding: 16px;
+    }
+    span.psw {
+      float: right;
+      position: relative;
+      top: -1rem;
+      /* padding-top: 16px; */
+    }
+    #google-login{
+    margin-top: 3rem !important;
+    padding: 0.8rem 5rem;
+    }
+    #google-login a{
+       color: white;
+       text-decoration: none;
+    }
+    @media screen and (max-width: 300px) {
+      span.psw {
+        display: block;
+        float: none;
+      }
+    }
 }

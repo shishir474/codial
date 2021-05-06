@@ -19,6 +19,11 @@
 
 <div id=signin-div>
       <form action="/users/create-session" method="POST">
+
+            <div class="imgcontainer">
+                  <img src="<%= assetPath('images/useravatar.jpg')%>" alt="Avatar" class="avatar" >
+            </div>
+
             <div class="container">
               <label for="email"><b>Email</b></label>
               <input type="email" placeholder="Enter Email" name="email" >
@@ -30,14 +35,23 @@
               <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me
               </label>
-              <button id="google-login">
-                  <a href="/users/auth/google"><i class="fab fa-google" style="margin-right: 0.5rem;">&nbsp&nbspLogin with Google</i></a>
-            </button> 
+           
             </div>
           
             <div class="container" style="background-color:#f1f1f1">
               
               <span class="psw">Forgot <a href="/users/forgot">password?</a></span>
             </div>
-          </form>
+      </form>
+         
 </div>
+<div id="partition"></div>
+<div id="btn-div">
+      <a href="/users/auth/google">
+            <button type="button" class="btn btn-outline-success btn-lg" id="google-login">
+               <i class="fab fa-google"  style="margin-right: 0.5rem;"></i>
+                Login with Google
+            </button>
+      </a>
+</div>
+
