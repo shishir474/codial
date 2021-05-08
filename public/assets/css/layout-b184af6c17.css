@@ -2,7 +2,7 @@ body {
   margin: 0px;
   background-color: white; }
   body #layout-main {
-    height: 100%;
+    height: auto;
     margin: 10px; }
     
     /* below styling will be applied to all the files that asre following this layout */

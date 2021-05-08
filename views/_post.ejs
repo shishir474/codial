@@ -1,5 +1,6 @@
 <!-- this entire list item is a post -->
 
+
 <li id="post-<%= post._id%>">
                  <!-- when I need to delete this post we need to recognize it.. that why we're giving it an id -->
     <p>
@@ -18,42 +19,54 @@
         <!-- CHANGE :: display the likes of this post, if the user is logged in, then show the link to toggle likes, else, just show the count -->
         <small>
             <% if (locals.user){ %>
-                <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=post">
-                        <%= post.likes.length %> Likes
+                <i class="far fa-thumbs-up" style="color: blue;"></i>
+                <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=post" style="text-decoration: none;">
+                      <%= post.likes.length %> 
                 </a>
             <% }else{ %>
-                <%= post.likes.length %> Likes
+                <i class="far fa-thumbs-up" style="color: blue;"></i> <%= post.likes.length %> 
             <% } %>
         </small>
 
      </p>
-    
-    <!-- comment form -->
-    <div class="post-comments">
-    <%  if (locals.user){ %>
-        <!-- let's give an id to the new comment form, we'll also need to make the same changes in home_posts.js where we're adding a post to the page -->
-        <form action="/comment/create" id="post-<%= post._id %>-comments-form" method="POST">
-            <input type="text" name="content" placeholder="Type Here to add comment..." required>
-            <!-- sending id of the post to which the comment belongs to in a hidden manner -->
-            <input type="hidden" name="post" value="<%= post._id%>">
-            <input type="submit" value="Add comment">
-        </form>
-        <% } %>  
-
-<!-- 
-        displaying comments and author name
-        prepopulated the comments and user -->
-        <div class="post-comments-list">
-            <ul id="post-comments-<%= post._id %>">
-                <% for (comment of post.comments) { %>
-                    <p>
-                        <%- include('_comment') -%>
-                    </p>
-                <% } %>
-            </ul>
+<!--     
+     Open comment div -->
+       <p>
+          <a style="text-decoration: none;" data-bs-toggle="collapse" href="#collapseExample"  role="button" aria-expanded="false" aria-controls="collapseExample">
+            <i class="fas fa-comment"></i>&nbsp comment
+          </a>
+       
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body" style="background-color: unset; border-width: 0px;">
+            <!-- ******* -->
+            <div class="post-comments" >
+                <%  if (locals.user){ %>
+                    <!-- let's give an id to the new comment form, we'll also need to make the same changes in home_posts.js where we're adding a post to the page -->
+                    <form action="/comment/create" id="post-<%= post._id %>-comments-form" method="POST">
+                        <input type="text" name="content" placeholder="Type Here to add comment..." required>
+                        <!-- sending id of the post to which the comment belongs to in a hidden manner -->
+                        <input type="hidden" name="post" value="<%= post._id%>">
+                        <input type="submit" value="Add comment">
+                    </form>
+                    <% } %>  
+            
+            <!-- 
+                    displaying comments and author name
+                    prepopulated the comments and user -->
+                    <div class="post-comments-list">
+                        <ul id="post-comments-<%= post._id %>">
+                            <% for (comment of post.comments) { %>
+                                <p>
+                                    <%- include('_comment') -%>
+                                </p>
+                            <% } %>
+                        </ul>
+                    </div>
+            
+                </div>
+                <!-- ******** -->
         </div>
-
-    </div>
-    
+      </div>
     
 </li> 

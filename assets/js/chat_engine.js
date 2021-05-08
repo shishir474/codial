@@ -47,6 +47,7 @@ class ChatEngine{
 
         self.socket.on('receive_message', function(data){
             console.log('message received', data.message);
+    
 
             let newMessage = $('<li>');
             let messageType = 'other-message';

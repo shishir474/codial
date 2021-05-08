@@ -1,8 +1,13 @@
+body{
+ 
+  /* background-color: #E4A9AE; */
+}
 #signin-div{
   width: 40%;
  margin-left: 5%;
  margin-top: 2%;
  display: inline-block;
+
 }
 #btn-div{
   display: inline-block;

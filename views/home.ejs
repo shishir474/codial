@@ -21,8 +21,15 @@
 <!-- Understanding Partials -->
 <html>
     <head>
-        <title></title>
+        <title>Home</title>
         <link rel="stylesheet" href="<%= assetPath('css/home.css') %>">
+        <style>
+            body{
+                background-image: url("<%= assetPath('images/bg1.jpg')%>");
+                background-size: contain;
+            }
+        </style>
+        
     </head>
     <body>
         <div id="home-container">
@@ -31,12 +38,13 @@
                 <!-- display form only if the user is authenticated. If authenticated then locals objecty will have user key -->
                 <% if (locals.user) { %>
                   <!-- post form -->
-                    <form action="/posts/create" id="new-post-form" method="POST">
-                         <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
-                         <input type="submit" value="Post">
+                    <form action="/posts/create" id="new-post-form" method="POST" >
+                         <textarea name="content" cols="30" rows="2" placeholder="Type here..." id="styled" onfocus="this.value=''; setbg('#e5fff3');" onblur="setbg('#ffb6c157')"></textarea><br>
+                         <input type="submit" value="Post" class="btn btn-outline-primary" style="margin-top: 1rem;">
                     </form>
                 <% } %>
   
+                <!-- Post display -->
                 <div id="posts-list-container">
                     <ul>
                        <% for (post of posts) { %> 
@@ -88,5 +96,13 @@
             </script>
         <% } %>
         
+
+
+        <script>
+            function setbg(color)
+            {
+            document.getElementById("styled").style.background=color
+            }
+        </script>
     </body>
 </html>

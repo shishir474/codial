@@ -13,4 +13,7 @@
     #home-container #user-friends #friends-name a{
       text-decoration: none;
     }
-    
+    #styled{
+      background-color:#edd3e800;
+      padding: 1rem; 
+    }

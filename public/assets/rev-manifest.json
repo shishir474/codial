@@ -5,13 +5,16 @@
   "css/home.css": "css/home-e17b813f2e.css",
   "css/layout.css": "css/layout-b184af6c17.css",
   "css/user_profile.css": "css/user_profile-04a27f5da7.css",
-  "css/sign-in.css": "css/sign-in-728a977d59.css",
+  "css/sign-in.css": "css/sign-in-53d9082298.css",
   "css/sign-up.css": "css/sign-up-24046b13e2.css",
+  "images/bg1.jpg": "images/bg1-07808da010.jpg",
   "images/bg_signup.jpg": "images/bg_signup-be2f8aabcd.jpg",
+  "images/google-icon.png": "images/google-icon-b3686a3458.png",
+  "images/like-image.png": "images/like-image-041c46cf2c.png",
   "images/useravatar.jpg": "images/useravatar-1718bb5abb.jpg",
+  "images/useravatarnew.png": "images/useravatarnew-ae89c88790.png",
   "js/chat_engine.js": "js/chat_engine-3e42b32d15.js",
   "js/home_comments.js": "js/home_comments-24308baa7c.js",
   "js/home_posts.js": "js/home_posts-998615cb83.js",
   "js/toggle_likes.js": "js/toggle_likes-fe16c54a7d.js"
-
 }

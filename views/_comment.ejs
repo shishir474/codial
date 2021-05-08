@@ -18,11 +18,12 @@
         <!-- study about the data attribute -->
         <small>
             <% if (locals.user){ %>
-                <a class="toggle-like-button" data-likes="<%= comment.likes.length %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
-                        <%= comment.likes.length %> Likes
+                <i class="far fa-thumbs-up" style="color: blue;"></i>
+                <a class="toggle-like-button" data-likes="<%= comment.likes.length %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment"  style="text-decoration: none;">
+                     <%= comment.likes.length %> 
                 </a>
             <% }else{ %>
-                <%= comment.likes.length %> Likes
+                <i class="far fa-thumbs-up"></i> <%= comment.likes.length %>
             <% } %>
         </small>
     
